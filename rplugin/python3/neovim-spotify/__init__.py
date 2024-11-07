@@ -31,7 +31,6 @@ class NeovimSpotify:
         fetch_currently_playing_track(self)
         create_input(self)
 
-    @pynvim.function("SpotifyConfig", sync=True)
     def config_plugin(self) -> None:
 
         self.logger.info("Configuring plugin")

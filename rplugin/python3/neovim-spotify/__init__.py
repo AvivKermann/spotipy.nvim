@@ -39,4 +39,4 @@ def get_currently_playing_track(self):
     if response.returncode != 0:
         self.logger.error("Error getting currently playing track")
         return
-    self.nvim.command("echo '{response.stdout.decode().split()}'")
+    self.nvim.command(f"echo '{response.stdout.decode().split()}'")

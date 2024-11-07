@@ -1,4 +1,3 @@
-from command import Command
 import pynvim
 
 @pynvim.plugin

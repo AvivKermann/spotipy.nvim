@@ -29,5 +29,6 @@ class NeovimSpotify:
         buf = self.nvim.api.create_buf(False, True)
         print(buf)
         self.nvim.command("echo 'Hello, world!'")
+        self.nvim.command(f"echo '{buf.number}'")
 
 

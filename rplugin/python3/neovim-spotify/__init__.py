@@ -26,6 +26,8 @@ class NeovimSpotify:
 
     @pynvim.command("Spotify", sync=True)
     def hello_world(self):
+        buf = self.nvim.api.create_buf(False, True)
+        print(buf)
         self.nvim.command("echo 'Hello, world!'")
 
 

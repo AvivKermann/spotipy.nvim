@@ -2,6 +2,7 @@ from pynvim.api.buffer import Buffer
 from pynvim.api.nvim import Nvim
 from pynvim.api.window import Window
 from typing import Dict, Union
+from .actions import get_currently_playing_track
 import pynvim
 import logging
 
@@ -26,9 +27,10 @@ class NeovimSpotify:
 
     @pynvim.command("Spotify", sync=True)
     def hello_world(self):
+
+        # this works for sure to create a buffer.
         buf = self.nvim.api.create_buf(False, True)
-        print(buf)
-        self.nvim.command("echo 'Hello, world!'")
-        self.nvim.command(f"echo '{buf.number}'")
+        get_currently_playing_track(self)
+
 
 

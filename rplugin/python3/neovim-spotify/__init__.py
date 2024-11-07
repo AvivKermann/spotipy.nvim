@@ -35,7 +35,7 @@ class NeovimSpotify:
 
 
 def get_currently_playing_track(self: NeovimSpotify):
-    response = subprocess.run(["spt", "playback", "-s", "-f", "%t by %a"])
+    response = subprocess.run(["spt", "playback", "-s", "-f", "%t by %a"], shell=True, capture_output=True)
     if response.returncode != 0:
         self.nvim.command("echo 'Error fetching current track'")
 

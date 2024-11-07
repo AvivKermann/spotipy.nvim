@@ -1,12 +1,13 @@
+from .command import Command
 import pynvim
 
 @pynvim.plugin
-class ExamplePlugin:
+class NeovimSpotify:
     def __init__(self, nvim):
         self.nvim = nvim
-        self.nvim.out_write("Plugin loaded\n")
+        self.cmd = Command(nvim)
 
-    @pynvim.command('HelloWorld', sync=True)
+    @pynvim.command("Spotify", sync=True)
     def hello_world(self):
         self.nvim.out_write("Hello, World!\n")
 

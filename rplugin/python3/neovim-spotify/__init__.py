@@ -10,10 +10,6 @@ import logging
 
 @pynvim.plugin
 class NeovimSpotify:
-
-    HEIGHT= 48
-    WIDTH= 3
-
     def __init__(self, nvim: Nvim):
         self.nvim = nvim
         self.buffer: Union[None,Buffer] = None

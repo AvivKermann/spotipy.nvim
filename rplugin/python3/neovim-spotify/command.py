@@ -4,7 +4,7 @@ from pynvim.api.window import Window
 from typing import Dict, Union
 import pynvim
 import logging
-import subprocess
+from .actions import get_currently_playing_track
 
 
 @pynvim.plugin
@@ -31,12 +31,3 @@ class NeovimSpotify:
         # this works for sure to create a buffer.
         buf = self.nvim.api.create_buf(False, True)
         get_currently_playing_track(self)
-
-
-
-def get_currently_playing_track(self: NeovimSpotify):
-    response = subprocess.run("spt playback -s -f '%t by %a'", shell=True, capture_output=True)
-    if response.returncode != 0:
-        self.nvim.command("echo 'Error fetching current track'")
-
-    self.nvim.command(f"echo '{response.stdout.decode().strip()}'")

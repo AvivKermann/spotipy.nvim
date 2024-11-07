@@ -1,4 +1,4 @@
-from __init__ import NeovimSpotify
+from .command import NeovimSpotify
 import subprocess
 
 def get_currently_playing_track(self: NeovimSpotify):

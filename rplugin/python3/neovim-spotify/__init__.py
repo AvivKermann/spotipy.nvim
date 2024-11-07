@@ -1,7 +1,7 @@
 import pynvim
 
 @pynvim.plugin
-class ExamplePlugin:
+class NeovimSpotify:
     def __init__(self, nvim):
         self.nvim = nvim
 

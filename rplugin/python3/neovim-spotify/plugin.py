@@ -28,7 +28,7 @@ class Plugin:
         # track = response.stdout.decode().strip()
         # since this is an api call we need to wait for it
         track = self.spotify.get_currently_playing_track()
-        self.nvim.command(f"echo '{track}'")
+        self.nvim.out_write(f"Currently playing: {track}\n")
 
     def start(self):
         self.config_plugin()

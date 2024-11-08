@@ -20,7 +20,7 @@ class NeovimSpotify:
 
 
     @pynvim.command("SpotifyPlayback", sync=True)
-    def spotify_playback(self, args: str):
+    def spotify_playback(self, args: str = ""):
         if args:
             args = args.strip().lower()
             if args in ["-n", "next"]:

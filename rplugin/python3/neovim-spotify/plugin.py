@@ -2,8 +2,8 @@ from pynvim.api.buffer import Buffer
 from pynvim.api.nvim import Nvim
 from pynvim.api.window import Window
 from typing import Dict, Union
+from .spotify import Spotify
 import logging
-import subprocess
 
 class Plugin:
     WIDTH = 48
@@ -16,16 +16,18 @@ class Plugin:
         self.placeholder: Union[None,Buffer] = None
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
+        self.spotify = Spotify()
 
 
     def get_currently_playing_track(self):
         self.logger.info("Getting currently playing track")
-        response = subprocess.run("spt playback -s -f '%t by %a'", shell=True, capture_output=True)
-        if response.returncode != 0:
-            self.logger.error("Error getting currently playing track")
-            return
-        track = response.stdout.decode().strip()
-        self.nvim.command(f"echo 'Currently playing: {track}'")
+        # response = subprocess.run("spt playback -s -f '%t by %a'", shell=True, capture_output=True)
+        # if response.returncode != 0:
+        #     self.logger.error("Error getting currently playing track")
+        #     return
+        # track = response.stdout.decode().strip()
+        track = self.spotify.get_currently_playing_track()
+        self.nvim.command(f"echo '{track}'")
 
     def start(self):
         self.config_plugin()

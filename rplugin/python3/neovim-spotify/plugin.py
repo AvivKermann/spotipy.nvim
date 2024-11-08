@@ -4,7 +4,6 @@ from pynvim.api.window import Window
 from typing import Dict, Union
 from .spotify import Spotify
 import logging
-import asyncio
 
 class Plugin:
     WIDTH = 48
@@ -20,7 +19,7 @@ class Plugin:
         self.spotify = Spotify()
 
 
-    async def get_currently_playing_track(self):
+    def get_currently_playing_track(self):
         self.logger.info("Getting currently playing track")
         # response = subprocess.run("spt playback -s -f '%t by %a'", shell=True, capture_output=True)
         # if response.returncode != 0:
@@ -28,14 +27,14 @@ class Plugin:
         #     return
         # track = response.stdout.decode().strip()
         # since this is an api call we need to wait for it
-        track = await self.spotify.get_currently_playing_track()
+        track = self.spotify.get_currently_playing_track()
         self.nvim.command(f"echo '{track}'")
 
-    async def start(self):
+    def start(self):
         self.config_plugin()
 
         self.create_placeholder()
-        await self.get_currently_playing_track()
+        self.get_currently_playing_track()
         self.create_input()
 
     def config_plugin(self) -> None:

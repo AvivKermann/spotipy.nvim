@@ -47,10 +47,6 @@ class Spotify:
             self.logger.error(f"Error in toggle: {e}")
             return
 
-
-    def play(self, uri: str):
-        pass
-
     def like(self, uri: str):
         pass
 
@@ -69,14 +65,28 @@ class Spotify:
 
     def next(self):
         try:
+            # make sure the device is connected.
+            self.transfer_playback_to_device()
             self.spotify.next_track()
+            playback = self.spotify.current_playback()
+
+            # auto start the track after skipping
+            if playback and not playback.get("is_playing"):
+                self.spotify.start_playback()
             self.logger.info("Skipped to the next track.")
         except Exception as e:
             self.logger.error(f"Error skipping to the next track: {e}")
 
     def prev(self):
         try:
+            # make sure the device is connected.
+            self.transfer_playback_to_device()
             self.spotify.previous_track()
+            playback = self.spotify.current_playback()
+
+            # auto start the track after going back
+            if playback and not playback.get("is_playing"):
+                self.spotify.start_playback()
             self.logger.info("Skipped to the previous track.")
         except Exception as e:
             self.logger.error(f"Error skipping to the previous track: {e}")

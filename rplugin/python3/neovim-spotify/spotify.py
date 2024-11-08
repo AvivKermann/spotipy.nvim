@@ -6,14 +6,17 @@ logging.basicConfig(level=logging.INFO)
 
 class Spotify:
     def __init__(self):
-        self.spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
-            client_id = os.getenv("CLIENT_ID"),
-            client_secret = os.getenv("CLIENT_SECRET"),
-            redirect_uri = os.getenv("REDIRECT_URI"),
-            scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify",
-            cache_path=".spotify_cache"
-        ))
         self.logger = logging.getLogger(__name__)
+        try:
+            self.spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
+                client_id = os.getenv("CLIENT_ID"),
+                client_secret = os.getenv("CLIENT_SECRET"),
+                redirect_uri = os.getenv("REDIRECT_URI"),
+                scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify",
+                cache_path=".spotify_cache"
+            ))
+        except Exception as e:
+            self.logger.critical(f"Error initializing Spotify client: {e}")
 
     def get_currently_playing_track(self):
         try:
@@ -28,7 +31,7 @@ class Spotify:
             self.logger.error(f"Error fetching currently playing track: {e}")
             return "Error fetching track"
 
-    def search(self, query: str):
+    def search(self, query: str, search_type: str):
         pass
 
     def toggle(self):

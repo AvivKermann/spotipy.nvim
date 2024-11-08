@@ -21,16 +21,17 @@ class NeovimSpotify:
 
     @pynvim.command("SpotifyPlayback", sync=True)
     def spotify_playback(self, args: str = ""):
-        if args:
-            args = args.strip().lower()
-            if args in ["-n", "next"]:
-                self.plugin.spotify.next()
-            elif args in ["-p", "prev"]:
-                self.plugin.spotify.prev()
-            else:
-                self.plugin.nvim.command("echo 'Invalid argument. Use -n or next for next song, or -p or prev for previous song.'")
+        self.plugin.nvim.out_write(f"args: {args}\n")
+        args = args.strip().lower() if args else ""
+        if args in ["-n", "next"]:
+            self.plugin.spotify.next()
+            return
+        elif args in ["-p", "prev"]:
+            self.plugin.spotify.prev()
+            return
         else:
-            self.plugin.nvim.command("echo 'Please specify either -n/next or -p/prev.'")
+            self.plugin.nvim.command("echo 'Invalid argument. Use -n or next for next song, or -p or prev for previous song.'")
+            return
 
     
 

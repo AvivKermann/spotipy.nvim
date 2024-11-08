@@ -35,6 +35,7 @@ class NeovimSpotify:
     @pynvim.command("SpotifySearch", nargs="*", sync=True)
     def spotify_search(self, args):
         if not args or not args[0]:
+            self.plugin.nvim.command("echo 'Must provide a search query while using search command'")
             return []
         tracks = self.plugin.search(" ".join(args))
         return tracks        

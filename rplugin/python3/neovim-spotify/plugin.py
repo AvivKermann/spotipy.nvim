@@ -24,6 +24,11 @@ class Plugin:
         track = self.spotify.get_currently_playing_track()
         self.nvim.out_write(f"Currently playing: {track}\n")
 
+    def search(self, query: str, search_type: str = "track"):
+        self.logger.info(f"Searching for track: {query}")
+        tracks = self.spotify.search(query=query, search_type=search_type)
+        self.nvim.out_write(f"Tracks: {tracks}\n")
+        return tracks
 
     def start(self):
         self.config_plugin()

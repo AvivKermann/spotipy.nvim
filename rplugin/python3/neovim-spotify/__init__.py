@@ -36,11 +36,7 @@ class NeovimSpotify:
     def spotify_search(self, args):
         if not args or not args[0]:
             return []
-
-        search_query = args[0]
-        self.plugin.nvim.out_write(search_query)
-        tracks = self.plugin.spotify.search(search_query, search_type="track")
-        self.plugin.nvim.out_write(f"Tracks: {tracks}")
+        tracks = self.plugin.search(args[0])
         return tracks        
 
         

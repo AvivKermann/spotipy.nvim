@@ -1,6 +1,5 @@
 from .plugin import Plugin
 from pynvim.api.nvim import Nvim
-from typing import List
 import pynvim
 
 @pynvim.plugin
@@ -33,13 +32,14 @@ class NeovimSpotify:
             self.plugin.nvim.command("echo 'Invalid argument. Use -n or next for next song, or -p or prev for previous song.'")
             return
 
-    @pynvim.function("SpotifySearch", sync=True)
+    @pynvim.command("SpotifySearch", nargs="*", sync=True)
     def spotify_search(self, args):
         if not args or not args[0]:
             return []
 
         search_query = args[0].strip().decode("utf-8")
         tracks = self.plugin.spotify.search(search_query, search_type="track")
+        self.plugin.nvim.out_write(f"Tracks: {tracks}")
         return tracks        
 
         

@@ -11,6 +11,7 @@ class Spotify:
             client_secret = os.getenv("CLIENT_SECRET"),
             redirect_uri = os.getenv("REDIRECT_URI"),
             scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify",
+            cache_path=".spotify_cache"
             )
         )
 

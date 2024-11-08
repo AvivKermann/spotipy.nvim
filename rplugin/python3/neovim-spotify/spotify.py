@@ -1,9 +1,8 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-from dotenv import load_dotenv
 import os
+import asyncio
 
-load_dotenv()
 class Spotify:
     def __init__(self):
         self.spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
@@ -15,7 +14,7 @@ class Spotify:
             )
         )
 
-    def get_currently_playing_track(self):
+    async def get_currently_playing_track(self):
         current_track = self.spotify.current_user_playing_track()
         if current_track:
             track_name = current_track["item"]["name"]

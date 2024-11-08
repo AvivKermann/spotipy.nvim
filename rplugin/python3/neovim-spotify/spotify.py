@@ -10,7 +10,7 @@ class Spotify:
             client_id = os.getenv("CLIENT_ID"),
             client_secret = os.getenv("CLIENT_SECRET"),
             redirect_uri = os.getenv("REDIRECT_URI"),
-            scope = "user-library-read",
+            scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify",
             )
         )
 

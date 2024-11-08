@@ -21,14 +21,9 @@ class Plugin:
 
     def get_currently_playing_track(self):
         self.logger.info("Getting currently playing track")
-        # response = subprocess.run("spt playback -s -f '%t by %a'", shell=True, capture_output=True)
-        # if response.returncode != 0:
-        #     self.logger.error("Error getting currently playing track")
-        #     return
-        # track = response.stdout.decode().strip()
-        # since this is an api call we need to wait for it
         track = self.spotify.get_currently_playing_track()
         self.nvim.out_write(f"Currently playing: {track}\n")
+
 
     def start(self):
         self.config_plugin()

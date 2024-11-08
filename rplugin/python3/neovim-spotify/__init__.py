@@ -14,5 +14,10 @@ class NeovimSpotify:
         buf = self.plugin.nvim.api.create_buf(False, True)
         self.plugin.get_currently_playing_track()
 
+    @pynvim.command("SpotifyToggle", sync=True)
+    def spotify_toggle(self):
+        self.plugin.spotify.toggle()
+
+    
 
 

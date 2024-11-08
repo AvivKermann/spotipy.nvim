@@ -12,8 +12,7 @@ class Spotify:
             redirect_uri = os.getenv("REDIRECT_URI"),
             scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify",
             cache_path=".spotify_cache"
-            )
-        )
+        ))
         self.logger = logging.getLogger(__name__)
 
     def get_currently_playing_track(self):
@@ -28,4 +27,42 @@ class Spotify:
         except Exception as e:
             self.logger.error(f"Error fetching currently playing track: {e}")
             return "Error fetching track"
+
+    def search(self, query: str):
+        pass
+
+    def toggle(self):
+        try:
+            playback = self.spotify.current_playback()
+            if playback is None or not playback.get("device"):
+                self.transfer_playback_to_device()
+
+            if playback and playback.get("is_playing"):
+                self.spotify.pause_playback()
+                self.logger.info("Music paused.")
+                return
+            else:
+                self.spotify.start_playback()
+        except Exception as e:
+            self.logger.error(f"Error in toggle: {e}")
+            return
+
+    def transfer_playback_to_device(self):
+        devices = self.spotify.devices()
+        if devices and 'devices' in devices:
+            for device in devices['devices']:
+                if device["type"] == "Computer":
+                    self.spotify.transfer_playback(device["id"], force_play=False)
+                    self.logger.info(f"Transferred playback to {device['name']}")
+                    break
+            else:
+                self.logger.info("No computer device found.")
+        else:
+            self.logger.info("No devices found.")
+
+    def play(self, uri: str):
+        pass
+
+    def like(self, uri: str):
+        pass
 

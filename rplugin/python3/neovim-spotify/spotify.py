@@ -31,8 +31,22 @@ class Spotify:
             self.logger.error(f"Error fetching currently playing track: {e}")
             return "Error fetching track"
 
-    def search(self, query: str, search_type: str):
-        pass
+    def search(self, query: str, search_type: str = "track"):
+        """ returns an array of tracks dict with title, artist, and uri."""
+        try:
+            tracks = []
+            results = self.spotify.search(q=query, type=search_type, limit=10)
+            # we don't care because spotify basically always returns something.
+            for item in results[search_type + "s"]["items"]: # type: ignore
+                tracks.append({
+                    "title": item["name"],
+                    "artist": item["artists"][0]["name"],
+                    "uri": item["uri"]
+                })
+            return tracks
+
+        except Exception as e:
+            self.logger.error(f"Error searching for tracks: {e}")
 
     def toggle(self):
         try:

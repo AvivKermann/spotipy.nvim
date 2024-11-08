@@ -36,7 +36,7 @@ class NeovimSpotify:
     def spotify_search(self, args):
         if not args or not args[0]:
             return []
-        tracks = self.plugin.search(args.join(" "))
+        tracks = self.plugin.search(" ".join(args))
         return tracks        
 
         

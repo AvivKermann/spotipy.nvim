@@ -19,7 +19,7 @@ class NeovimSpotify:
         self.plugin.spotify.toggle()
 
 
-    @pynvim.command("SpotifyPlayback", sync=True)
+    @pynvim.command("SpotifyPlayback", nargs=1, sync=True)
     def spotify_playback(self, args: str = ""):
         self.plugin.nvim.out_write(f"args: {args}\n")
         args = args.strip().lower() if args else ""

@@ -38,6 +38,7 @@ class NeovimSpotify:
             return []
 
         search_query = args[0]
+        self.plugin.nvim.out_write(search_query)
         tracks = self.plugin.spotify.search(search_query, search_type="track")
         self.plugin.nvim.out_write(f"Tracks: {tracks}")
         return tracks        

@@ -11,8 +11,6 @@ local function finder_fn()
         local results = {}
 
         for _, v in pairs(res) do
-
-            vim.notify(vim.inspect(v))
             table.insert(results, { artist = v.artist, title = v.title, uri = v.uri })
         end
         return results
@@ -43,7 +41,7 @@ local function entry_fn(opts)
     return function(entry)
         return {
             artist = entry.artist,
-            track = entry.title,
+            title = entry.title,
             uri = entry.uri,
             display = make_display,
             ordinal = entry.title .. " " .. entry.artist,

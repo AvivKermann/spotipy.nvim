@@ -38,50 +38,5 @@ class NeovimSpotify:
             return []
         tracks = self.plugin.search(" ".join(args))
         self.plugin.nvim.vars["spotify_search_results"] = tracks
-        return tracks        
-
-    @pynvim.command('CreateSpotifyInput', sync=True)
-    def create_spotify_input(self):
-        # Get the screen dimensions to calculate center
-        screen_width = self.plugin.nvim.api.get_option('columns')
-        screen_height = self.plugin.nvim.api.get_option('lines')
-
-        # Set window size (e.g., 50 columns wide, 3 rows high)
-        width = 50
-        height = 3
-
-        # Calculate the position (center of the screen)
-        row = (screen_height - height) // 2
-        col = (screen_width - width) // 2
-
-        # Create a new buffer (empty one for input)
-        buf = self.plugin.nvim.api.create_buf(False, True)  # False = not listed, True = modifiable
-
-        # Open the floating window with the created buffer
-        opts = {
-            'relative': 'win',  # Relative to the editor (screen)
-            'width': width,
-            'height': height,
-            'row': row,
-            'col': col,
-            'style': 'minimal',  # No borders, just the input field
-            'border': 'none',  # No border around the window
-        }
-
-        # Open the window with the created buffer
-        win_id = self.plugin.nvim.api.open_win(buf, True, opts)  # True = focus the window
-
-        # Set the buffer as modifiable (it should be, but we ensure it)
-        self.plugin.nvim.api.buf_set_option(buf, 'modifiable', True)
-
-        # Set some text inside the window (e.g., prompt for Spotify input)
-        self.plugin.nvim.api.buf_set_lines(buf, 0, -1, False, ['Enter Spotify command:'])
-
-        # Optionally, use input() to ask for user input (if it's a simple one-liner)
-        user_input = self.plugin.nvim.api.input('Enter Spotify command: ')
-
-        # Close the floating window after input
-        self.plugin.nvim.api.win_close(win_id)
-
-        # Process the user input (this could be your Spotify command)
-        self.plugin.nvim.out_write(f"Spotify command entered: {user_input}\n")
+        self.plugin.nvim.exec_lua("require('neovim-spotify').init()")
+        

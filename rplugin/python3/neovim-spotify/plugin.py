@@ -29,5 +29,4 @@ class Plugin:
         self.logger.info(f"Searching for track: {query}")
         tracks = self.spotify.search(query=query, search_type=search_type)
         self.nvim.vars["spotify_search_results"] = tracks
-        self.nvim.exec_lua("require('neovim-spotify').init()")
 

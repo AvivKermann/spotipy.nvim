@@ -23,10 +23,9 @@ function M.search_tracks()
         attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
                 local input = action_state.get_current_line()
-                vim.inspect(input)
-                -- actions.close(prompt_bufnr)
+                vim.inspect("SpotifySearch " .. input)
                 if input and input ~= "" then
-                    vim.cmd("SpotifySearch " .. vim.fn.escape(input, " "))
+                    vim.api.nvim_command("SpotifySearch " .. vim.fn.escape(input, " "))
                 else
                     print("Search query cannot be empty")
                 end

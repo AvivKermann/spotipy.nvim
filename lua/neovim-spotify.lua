@@ -22,6 +22,7 @@ local conf = require("telescope.config").values
 local function finder_fn()
     return function(_)
         local res = vim.g.spotify_search_results
+        print(vim.inspect(res)) -- Debugging line
         local results = {}
 
         for _, v in pairs(res) do

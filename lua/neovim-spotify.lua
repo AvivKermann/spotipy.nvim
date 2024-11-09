@@ -53,7 +53,4 @@ function M.search_tracks()
         end,
     }):find()
 end
-
-M.search_tracks()
-
 return M

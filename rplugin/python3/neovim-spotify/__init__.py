@@ -7,7 +7,6 @@ from typing import Any
 class NeovimSpotify:
     def __init__(self, nvim: Nvim):
         self.plugin = Plugin(nvim)
-        self.plugin.start()
 
     @pynvim.command("Spotify", sync=True)
     def spotify(self):

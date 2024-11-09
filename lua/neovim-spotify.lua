@@ -71,7 +71,6 @@ local spotify = function (opts)
     }):find()
 end
 
--- Function to list available Spotify devices
 local list_devices = function (opts)
     opts = opts or {}
     pickers.new(opts, {
@@ -105,19 +104,6 @@ local list_devices = function (opts)
             return true
         end
     }):find()
-end
-
-local function spotify_search_input()
-    vim.ui.input({ prompt = "Search Spotify Tracks: " }, function(input)
-        -- no need to check input, python does this for us
-        spotify_search(input)
-    end)
-end
-
-local function spotify_search(query)
-    query = query or ""
-    local cmd = ":call SpotifySearch('" ..query.. "')"
-    vim.api.nvim_command(cmd)
 end
 
 local M = {

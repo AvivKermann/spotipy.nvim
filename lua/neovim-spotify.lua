@@ -124,8 +124,8 @@ local M = {}
 
 M.namespace = 'Spotify'
 
-function M.setup(opts)
-    M.opts = vim.tbl_deep_extend("force", M.opts, opts)
+function M.setup(_)
+    -- M.opts = vim.tbl_deep_extend("force", M.opts, opts)
     vim.api.nvim_set_keymap("n", "<Leader>ms", ":lua spotify_search_input()<CR>", { noremap = true, silent = true })
 end
 
@@ -133,4 +133,5 @@ function M.init()
     local opts = require'telescope.themes'.get_dropdown{}
     spotify(opts)
 end
+return M
 

@@ -8,7 +8,7 @@ class NeovimSpotify:
         self.plugin = Plugin(nvim)
 
     @pynvim.command("Spotify", sync=True)
-    def hello_world(self):
+    def spotify(self):
 
         # this works for sure to create a buffer.
         buf = self.plugin.nvim.api.create_buf(False, True)

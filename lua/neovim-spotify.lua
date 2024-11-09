@@ -22,11 +22,10 @@ local conf = require("telescope.config").values
 local function finder_fn()
     return function(_)
         local res = vim.g.spotify_search_results
-        vim.notify(vim.inspect(res))
         local results = {}
 
         for _, v in pairs(res) do
-            print("Track found:", v.artist, v.title)  -- Debugging line
+            -- print("Track found:", v.artist, v.title)
             table.insert(results, { artist = v.artist, title = v.title, uri = v.uri })
         end
 
@@ -49,8 +48,9 @@ local function entry_fn(opts)
     }
 
     local make_display = function (entry)
+        print(vim.inspect(entry))
         return displayer {
-            { entry.track, "TelescopeResultsNumber" },
+            { entry.title, "TelescopeResultsNumber" },
             { entry.artist, "TelescopeResultsComment" },
         }
     end

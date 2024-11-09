@@ -27,7 +27,6 @@ class Plugin:
     def search(self, query: str, search_type: str = "track"):
         self.logger.info(f"Searching for track: {query}")
         tracks = self.spotify.search(query=query, search_type=search_type)
-        self.nvim.out_write(f"{tracks}\n")
         return tracks
 
     def start(self):

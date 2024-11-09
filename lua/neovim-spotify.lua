@@ -20,18 +20,31 @@ function M.search_tracks()
         },
         sorter = conf.generic_sorter({}),
         previewer = false,
+        layout_strategy = "center",
         layout_config = {
-            width = 0.5,
-            height = 0.1,
-            results_height = 0,
+            width = 0.3,
+            height = 0.05,
+            anchor = "CENTER",
+            prompt_position = "top"
+        },
+        results_title = false,
+        borderchars = {
+            prompt = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
+        },
+        window = {
+            results_width = 0,
+            winblend = 0 ,
+            results = {
+                winblend = 0
+            }
         },
         attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
                 local input = action_state.get_current_line()
                 actions.close(prompt_bufnr)
                 if input and input ~= "" then
-                    -- Execute the SpotifySearch command with the user input
-                    vim.cmd("SpotifySearch " .. vim.fn.escape(input, " "))
+                    local tracks = vim.cmd("SpotifySearch " .. vim.fn.escape(input, " "))
+                    vim.inspect(tracks)
                 else
                     vim.notify("Search query cannot be empty", vim.log.levels.ERROR)
                 end
@@ -41,5 +54,6 @@ function M.search_tracks()
     }):find()
 end
 
-return M
+M.search_tracks()
 
+return M

@@ -33,9 +33,9 @@ class Plugin:
     def start(self):
 
         self.config_plugin()
-        self.create_placeholder()
-        # self.get_currently_playing_track()
-        self.create_input()
+        # self.create_placeholder()
+        # # self.get_currently_playing_track()
+        # self.create_input()
 
     def config_plugin(self) -> None:
         

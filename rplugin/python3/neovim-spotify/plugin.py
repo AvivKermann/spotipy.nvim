@@ -39,10 +39,10 @@ class Plugin:
 
     def config_plugin(self) -> None:
         
-        self.logger.info("Configuring plugin")
-        self.nvim.command("hi SpotifyBorder guifg=#1db954")
-        self.nvim.command("hi SpotifyText guifg=#1ed760")
-        self.nvim.command("hi SpotifySelection guifg=#191414 guibg=#1ed760")
+        # self.logger.info("Configuring plugin")
+        # self.nvim.command("hi SpotifyBorder guifg=#1db954")
+        # self.nvim.command("hi SpotifyText guifg=#1ed760")
+        # self.nvim.command("hi SpotifySelection guifg=#191414 guibg=#1ed760")
 
         self.create_anchor()
 
@@ -94,22 +94,6 @@ class Plugin:
         ui = self.nvim.api.get_current_win()
         win_config = self.nvim.api.win_get_config(ui)
         self.nvim.command(f"echo '{win_config}'")
-        # row = (float(win_config['height']) / 2) - (float(self.HEIGHT) / 2)
-        # col = (float(win_config['width']) / 2) - (float(self.WIDTH) / 2) + 1.5
-
-        # opts = {
-        #     "relative": "editor",
-        #     "anchor": "NW",
-        #     "width": self.WIDTH,
-        #     "height": self.HEIGHT,
-        #     "row": row,
-        #     "col": col,
-        #     "style": "minimal",
-        #     "zindex": 50,
-        #     "focusable": False
-        # }
-        # win = self.nvim.api.open_win(buf, False, opts)
-        # self.anchor = win
 
     def create_input(self) -> None:
         """Create an input field where users can type a query."""

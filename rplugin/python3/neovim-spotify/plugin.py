@@ -31,8 +31,8 @@ class Plugin:
         return tracks
 
     def start(self):
-        self.config_plugin()
 
+        self.config_plugin()
         self.create_placeholder()
         # self.get_currently_playing_track()
         self.create_input()
@@ -43,6 +43,8 @@ class Plugin:
         self.nvim.command("hi SpotifyBorder guifg=#1db954")
         self.nvim.command("hi SpotifyText guifg=#1ed760")
         self.nvim.command("hi SpotifySelection guifg=#191414 guibg=#1ed760")
+
+        self.create_anchor()
 
     def create_placeholder(self) -> None:
         self.logger.info("Creating placeholde")
@@ -85,6 +87,32 @@ class Plugin:
         self.nvim.api.win_set_option(win, "winhl", "Normal:SpotifyBorder")
         self.nvim.api.win_set_option(win, "winblend", 0)
         self.nvim.api.win_set_option(win, "foldlevel", 100)
+
+    def create_anchor(self):
+        logging.info("Creating Anchor")
+
+        buf = self.nvim.api.create_buf(False, True)
+        uis = self.nvim.api.ui_get_option()
+        if not uis:
+            logging.error("No UI found!")
+            return
+        ui = uis[0]
+        row = (float(ui['height']) / 2) - (float(self.HEIGHT) / 2)
+        col = (float(ui['width']) / 2) - (float(self.WIDTH) / 2) + 1.5
+
+        opts = {
+            "relative": "editor",
+            "anchor": "NW",
+            "width": self.WIDTH,
+            "height": self.HEIGHT,
+            "row": row,
+            "col": col,
+            "style": "minimal",
+            "zindex": 50,
+            "focusable": False
+        }
+        win = self.nvim.api.open_win(buf, False, opts)
+        self.anchor = win
 
     def create_input(self) -> None:
         """Create an input field where users can type a query."""

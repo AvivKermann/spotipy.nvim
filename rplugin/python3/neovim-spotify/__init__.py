@@ -38,5 +38,6 @@ class NeovimSpotify:
             return []
         tracks = self.plugin.search(" ".join(args))
         self.plugin.nvim.vars["spotify_search_results"] = tracks
+        self.plugin.nvim.vars["spotify_search_query"] = " ".join(args)
         self.plugin.nvim.exec_lua("require('neovim-spotify').init()")
         

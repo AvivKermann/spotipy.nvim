@@ -19,6 +19,7 @@ class Plugin:
         self.spotify = Spotify()
 
 
+
     def get_currently_playing_track(self):
         self.logger.info("Getting currently playing track")
         track = self.spotify.get_currently_playing_track()
@@ -33,7 +34,7 @@ class Plugin:
         self.config_plugin()
 
         self.create_placeholder()
-        self.get_currently_playing_track()
+        # self.get_currently_playing_track()
         self.create_input()
 
     def config_plugin(self) -> None:
@@ -86,4 +87,31 @@ class Plugin:
         self.nvim.api.win_set_option(win, "foldlevel", 100)
 
     def create_input(self) -> None:
-        self.logger.info("Creating input")
+        """Create an input field where users can type a query."""
+
+        buf = self.nvim.api.create_buf(True, False)
+        self.buffer = buf
+
+        opts = {
+            "relative": "win",          
+            "win": self.anchor,       
+            "width": self.WIDTH,
+            "height": 1,        
+            "bufpos": [0, 0],
+            "row": 1,              
+            "col": 0,   
+            "style": "minimal",
+            "zindex": 50, 
+            "focusable": True, 
+        }
+
+        win = self.nvim.api.open_win(buf, True, opts)
+        self.wins[win] = True
+
+        self.nvim.api.win_set_option(win, "winhl", "Normal:SpotifyText")
+        self.nvim.api.win_set_option(win, "winblend", 0)
+        self.nvim.api.win_set_option(win, "foldlevel", 100)
+
+        self.nvim.api.buf_set_lines(buf, 0, -1, True, ["Search: "])
+        self.nvim.api.command("startinsert")
+

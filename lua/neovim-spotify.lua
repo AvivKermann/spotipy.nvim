@@ -7,7 +7,7 @@ function M.search_tracks()
         prompt = "Search Tracks",
         default_text = "",
         on_submit = function(prompt)
-            if input and input ~= "" then
+            if prompt and prompt ~= "" then
                 vim.cmd("SpotifySearch " .. vim.fn.escape(prompt, " "))
             else
                 print("Search query cannot be empty")

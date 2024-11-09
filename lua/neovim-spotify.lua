@@ -8,9 +8,9 @@ local M = {}
 
 function M.search_tracks()
     pickers.new({}, {
-        prompt_title = 'Search Spotify Tracks',
+        prompt_title = 'Search Spotify',
         finder = finders.new_table {
-            results = {},
+            results = {}, -- No initial results; this is for input.
             entry_maker = function(entry)
                 return {
                     value = entry,
@@ -21,15 +21,22 @@ function M.search_tracks()
         },
         sorter = conf.generic_sorter({}),
         attach_mappings = function(prompt_bufnr, map)
-            actions.select_default:replace(function()
+            local execute_search = function()
                 local input = action_state.get_current_line()
-                vim.inspect("SpotifySearch " .. input)
+                actions.close(prompt_bufnr)
                 if input and input ~= "" then
-                    vim.api.nvim_command("SpotifySearch " .. vim.fn.escape(input, " "))
+                    vim.cmd("SpotifySearch " .. vim.fn.escape(input, " "))
                 else
                     print("Search query cannot be empty")
                 end
-            end)
+            end
+
+            -- Map <CR> in Normal mode
+            map('n', '<CR>', execute_search)
+
+            -- Map <CR> in Insert mode
+            map('i', '<CR>', execute_search)
+
             return true
         end,
     }):find()

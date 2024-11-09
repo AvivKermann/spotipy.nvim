@@ -107,6 +107,19 @@ local list_devices = function (opts)
     }):find()
 end
 
+local function spotify_search_input()
+    vim.ui.input({ prompt = "Search Spotify Tracks: " }, function(input)
+        -- no need to check input, python does this for us
+        spotify_search(input)
+    end)
+end
+
+local function spotify_search(query)
+    query = query or ""
+    local cmd = ":call SpotifySearch('" ..query.. "')"
+    vim.api.nvim_command(cmd)
+end
+
 local M = {
     opts = {
         status = {
@@ -120,15 +133,9 @@ local M = {
 
 M.namespace = 'Spotify'
 
--- Setup function to configure mappings
 function M.setup(opts)
     M.opts = vim.tbl_deep_extend("force", M.opts, opts)
-
-    vim.api.nvim_set_keymap("n", "<Plug>(SpotifySkip)", ":call SpotifyPlayback('next')<CR>", { silent = true })
-    vim.api.nvim_set_keymap("n", "<Plug>(SpotifyPause)", ":call SpotifyPlayback('pause')<CR>", { silent = true })
-    vim.api.nvim_set_keymap("n", "<Plug>(SpotifySave)", ":call SpotifySave()<CR>", { silent = true })
-    vim.api.nvim_set_keymap("n", "<Plug>(SpotifyPrev)", ":call SpotifyPlayback('prev')<CR>", { silent = true })
-    vim.api.nvim_set_keymap("n", "<Plug>(SpotifyShuffle)", ":call SpotifyPlayback('shuffle')<CR>", { silent = true })
+    vim.api.nvim_set_keymap("n", "<Leader>ms", ":lua spotify_search_input()<CR>", { noremap = true, silent = true })
 end
 
 function M.init()

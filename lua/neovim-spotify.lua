@@ -143,28 +143,3 @@ function M.init()
     spotify(opts)
 end
 
-function M.devices()
-    list_devices(require'telescope.themes'.get_dropdown{})
-end
-
--- Status management for Spotify
-function M.status:start()
-    local timer = vim.loop.new_timer()
-    timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function ()
-        local cmd = "spt playback --status --format '" .. M.opts.status.format .. "'"
-        vim.fn.jobstart(cmd, { on_stdout = self.on_event, stdout_buffered = true })
-    end))
-end
-
-function M.status:on_event(data)
-    if data then
-        M._status_line = data[1]
-    end
-end
-
-function M.status:listen()
-    return M._status_line
-end
-
-return M
-

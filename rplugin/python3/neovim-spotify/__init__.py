@@ -1,7 +1,6 @@
 from .plugin import Plugin
 from pynvim.api.nvim import Nvim
 import pynvim
-from typing import Any
 
 @pynvim.plugin
 class NeovimSpotify:
@@ -43,3 +42,7 @@ class NeovimSpotify:
         
     @pynvim.command("SpotifyPlay", nargs=1, sync=True)
     def spotify_play(self, args: str):
+        if not args or not args[0]:
+            self.plugin.nvim.command("echo 'Must provide a track uri'")
+            return
+        self.plugin.spotify.play(" ".join(args))

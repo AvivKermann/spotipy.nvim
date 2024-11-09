@@ -72,7 +72,6 @@ class Plugin:
             "col": -2,
             "style": "minimal",
             "zindex": 50,
-            "focusable": False,
         }
 
         self.nvim.api.buf_set_lines(buf, 0, -1, True, replace_lines)

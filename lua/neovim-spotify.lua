@@ -5,27 +5,13 @@ local actions_state = require "telescope.actions.state"
 local entry_display = require "telescope.pickers.entry_display"
 local conf = require("telescope.config").values
 
--- local tracks = {
---   { artist = "Metallica", title = "Nothing Else Matters", uri = "spotify:track:0nLiqZ6A27jJri2VCalIUs" },
---   { artist = "Metallica", title = "Nothing Else Matters - Remastered 2021", uri = "spotify:track:6QAsrXPnMSXIbV0yEJHlEX" },
---   { artist = "Metallica", title = "Nothing Else Matters - Live", uri = "spotify:track:4nvFgshg9sO9YVnlKgQysN" },
---   { artist = "Metallica", title = "Nothing Else Matters - Live", uri = "spotify:track:5jEfQZmmwwKymr9cfmgfsd" },
---   { artist = "Miley Cyrus", title = "Nothing Else Matters", uri = "spotify:track:2mC33mxgLJN3IT65MGN3B0" },
---   { artist = "Hardwell", title = "Nothing Else Matters vs F*CKING SOCIETY - Hardwell Mashup", uri = "spotify:track:107nvz0Fjnsq9O9g61myZ5" },
---   { artist = "Naughty Boy", title = "Runnin' (Lose It All)", uri = "spotify:track:5yZvaUVyuXfSVUaMumFi6l" },
---   { artist = "newvoicesbg", title = "Nothing Else Metters", uri = "spotify:track:5YEqUrOkj1Pvw3mCXVALyQ" },
---   { artist = "Roni Alter", title = "I Follow Rivers", uri = "spotify:track:4a2MIdV2CBdA9mUOgi0RWR" },
---   { artist = "Yoni Rechter", title = "שוב היא כאן", uri = "spotify:track:0G8ooolx3x5DNkKkcZ19zp" }
--- }
-
--- Finder function for tracks
 local function finder_fn()
     return function(_)
         local res = vim.g.spotify_search_results
+        print(vim.inspect(entry))
         local results = {}
 
         for _, v in pairs(res) do
-            -- print("Track found:", v.artist, v.title)
             table.insert(results, { artist = v.artist, title = v.title, uri = v.uri })
         end
 
@@ -48,7 +34,6 @@ local function entry_fn(opts)
     }
 
     local make_display = function (entry)
-        print(vim.inspect(entry))
         return displayer {
             { entry.title, "TelescopeResultsNumber" },
             { entry.artist, "TelescopeResultsComment" },

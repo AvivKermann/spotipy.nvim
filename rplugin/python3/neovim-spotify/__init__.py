@@ -1,6 +1,7 @@
 from .plugin import Plugin
 from pynvim.api.nvim import Nvim
 import pynvim
+from typing import Dict
 
 @pynvim.plugin
 class NeovimSpotify:
@@ -46,3 +47,18 @@ class NeovimSpotify:
             self.plugin.nvim.command("echo 'Must provide a track uri'")
             return
         self.plugin.spotify.play(" ".join(args))
+
+    @pynvim.command("SpotifyStatus", sync=True)
+    def spotify_status(self):
+        track = self.plugin.get_currently_playing_track()
+        if track.exists:
+            progress = track.get_progress()
+            duration = track.get_duration()
+            status_message = (
+                f"Song: {track.title}\n"
+                f"Artist: {track.artist}\n"
+                f"Progress: {progress}/{duration}"
+            )
+            self.plugin.nvim.api.notify(status_message)
+
+

@@ -2,7 +2,31 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
 import logging
+from dataclasses import dataclass
 logging.basicConfig(level=logging.INFO)
+
+
+@dataclass 
+class Track:
+    exists: bool 
+    title: str = ""
+    artist: str = ""
+    uri: str = ""
+    duration_ms: int = 0
+    progress_ms: int = 0
+
+    def get_progress(self) -> str:
+        progress_seconds = self.progress_ms // 1000
+        progress_minutes = progress_seconds // 60
+        progress_seconds = progress_seconds % 60
+        return f"{progress_minutes}:{progress_seconds:02d}"
+
+    def get_duration(self) -> str:
+        duration_seconds = self.duration_ms // 1000
+        duration_minutes = duration_seconds // 60
+        duration_seconds = duration_seconds % 60
+        return f"{duration_minutes}:{duration_seconds:02d}"
+
 
 class Spotify:
     def __init__(self):
@@ -22,14 +46,21 @@ class Spotify:
         try:
             current_track = self.spotify.current_user_playing_track()
             if current_track and current_track["item"]:
-                track_name = current_track["item"]["name"]
-                artist_name = current_track["item"]["artists"][0]["name"]
-                return f"{track_name} by {artist_name}"
+                track = Track(
+                    title = current_track["item"]["name"],
+                    artist = current_track["item"]["artists"][0]["name"],
+                    uri = current_track["item"]["uri"],
+                    duration_ms = current_track["item"]["duration_ms"],
+                    progress_ms = current_track["progress_ms"],
+                    exists = True
+                )
+                return track
             else:
-                return "No track currently playing"
+                return Track(exists=False)
+
         except Exception as e:
             self.logger.error(f"Error fetching currently playing track: {e}")
-            return "Error fetching track"
+            return Track(exists=False)
 
     def search(self, query: str, search_type: str = "track"):
         """ returns an array of tracks dict with title, artist, and uri."""

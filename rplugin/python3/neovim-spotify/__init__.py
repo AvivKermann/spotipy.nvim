@@ -60,7 +60,7 @@ class NeovimSpotify:
                 f"Progress: {progress}/{duration}"
             )
             lua_code = f"""
-            vim.notify("{repr(status_message)}", vim.log.levels.INFO, {{title = "Spotify"}})
+            vim.notify("{repr(status_message)[1:-1]}", vim.log.levels.INFO, {{title = "Spotify"}})
             """
             self.plugin.nvim.command('lua ' + lua_code)
 

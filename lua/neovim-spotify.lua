@@ -49,12 +49,11 @@ local function entry_fn(opts)
     end
 end
 
--- Main function for showing tracks using Telescope
 local spotify = function (opts)
     opts = opts or {}
     local query = vim.g.spotify_search_query
     pickers.new(opts, {
-        prompt_title = "Showing results for: " .. query,
+        prompt_title = "Showing Spotify results for: " .. query,
         finder = finders.new_dynamic({
             entry_maker = entry_fn(opts),
             fn = finder_fn()

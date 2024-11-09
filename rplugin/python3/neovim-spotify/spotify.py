@@ -49,6 +49,21 @@ class Spotify:
         except Exception as e:
             self.logger.error(f"Error searching for tracks: {e}")
 
+    def play(self, uri: str):
+        if not uri:
+            self.logger.error("Must provide a uri to play.")
+            return
+        device_id = self.get_device_id()
+        if not device_id:
+            self.logger.error("No device found.")
+            return
+
+        try:
+            self.spotify.start_playback(device_id=device_id, uris=[uri])
+            self.logger.info(f"Playing {uri}")
+        except Exception as e:
+            self.logger.error(f"Error playing track: {e}")
+
     def toggle(self):
         try:
             playback = self.spotify.current_playback()
@@ -70,8 +85,8 @@ class Spotify:
 
     def transfer_playback_to_device(self):
         devices = self.spotify.devices()
-        if devices and 'devices' in devices:
-            for device in devices['devices']:
+        if devices and "devices" in devices:
+            for device in devices["devices"]:
                 if device["type"] == "Computer":
                     self.spotify.transfer_playback(device["id"], force_play=False)
                     self.logger.info(f"Transferred playback to {device['name']}")
@@ -80,6 +95,13 @@ class Spotify:
                 self.logger.info("No computer device found.")
         else:
             self.logger.info("No devices found.")
+
+    def get_device_id(self):
+        devices = self.spotify.devices()
+        if devices and "devices" in devices:
+            for device in devices["devices"]:
+                if device["type"] == "Computer":
+                    return device["id"]
 
     def next(self):
         try:
@@ -108,3 +130,4 @@ class Spotify:
             self.logger.info("Skipped to the previous track.")
         except Exception as e:
             self.logger.error(f"Error skipping to the previous track: {e}")
+

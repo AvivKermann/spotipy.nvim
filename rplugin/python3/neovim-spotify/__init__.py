@@ -32,12 +32,14 @@ class NeovimSpotify:
             return
 
     @pynvim.command("SpotifySearch", nargs="*", sync=True)
-    def spotify_search(self, args) -> Any:
+    def spotify_search(self, args) -> None:
         if not args or not args[0]:
             self.plugin.nvim.command("echo 'Must provide a search query while using search command'")
-            return []
+            return
         tracks = self.plugin.search(" ".join(args))
         self.plugin.nvim.vars["spotify_search_results"] = tracks
         self.plugin.nvim.vars["spotify_search_query"] = " ".join(args)
         self.plugin.nvim.exec_lua("require('neovim-spotify').init()")
         
+    @pynvim.command("SpotifyPlay", nargs=1, sync=True)
+    def spotify_play(self, args: str):

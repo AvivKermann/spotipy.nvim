@@ -120,16 +120,7 @@ local function spotify_search(query)
     vim.api.nvim_command(cmd)
 end
 
-local M = {
-    opts = {
-        status = {
-            update_interval = 10000,
-            format = '%s %t by %a'
-        }
-    },
-    status = {},
-    _status_line = ""
-}
+local M = {}
 
 M.namespace = 'Spotify'
 

@@ -23,7 +23,8 @@ function M.search_tracks()
         attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
                 local input = action_state.get_current_line()
-                actions.close(prompt_bufnr)
+                vim.inspect(input)
+                -- actions.close(prompt_bufnr)
                 if input and input ~= "" then
                     vim.cmd("SpotifySearch " .. vim.fn.escape(input, " "))
                 else

@@ -54,10 +54,10 @@ class NeovimSpotify:
         row = (screen_height - height) // 2
         col = (screen_width - width) // 2
 
-        # Open a new buffer (empty one for input)
+        # Create a new buffer (empty one for input)
         buf = self.plugin.nvim.api.create_buf(False, True)  # False = not listed, True = modifiable
 
-        # Open the floating window
+        # Open the floating window with the created buffer
         opts = {
             'relative': 'editor',  # Relative to the editor (screen)
             'width': width,
@@ -69,7 +69,7 @@ class NeovimSpotify:
         }
 
         # Open the window with the created buffer
-        win_id = self.plugin.nvim.api.open_win(buf, False, opts)
+        win_id = self.plugin.nvim.api.open_win(buf, True, opts)  # True = focus the window
 
         # Set the buffer as modifiable (it should be, but we ensure it)
         self.plugin.nvim.api.buf_set_option(buf, 'modifiable', True)

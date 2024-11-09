@@ -59,7 +59,7 @@ class NeovimSpotify:
 
         # Open the floating window with the created buffer
         opts = {
-            'relative': 'editor',  # Relative to the editor (screen)
+            'relative': 'win',  # Relative to the editor (screen)
             'width': width,
             'height': height,
             'row': row,

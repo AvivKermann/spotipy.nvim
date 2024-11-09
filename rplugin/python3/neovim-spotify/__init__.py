@@ -59,6 +59,6 @@ class NeovimSpotify:
                 f"Artist: {track.artist}\n"
                 f"Progress: {progress}/{duration}"
             )
-            self.plugin.nvim.api.notify(status_message)
+            self.plugin.nvim.api.notify(status_message, "info", {"title": "Spotify"})
 
 

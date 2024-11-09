@@ -44,7 +44,7 @@ function M.search_tracks()
                 actions.close(prompt_bufnr)
                 if input and input ~= "" then
                     local tracks = vim.cmd("SpotifySearch " .. vim.fn.escape(input, " "))
-                    vim.inspect(tracks)
+                    vim.inspect(vim.g.spotify_search_results)
                 else
                     vim.notify("Search query cannot be empty", vim.log.levels.ERROR)
                 end

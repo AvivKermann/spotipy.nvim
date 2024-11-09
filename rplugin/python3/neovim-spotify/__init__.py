@@ -1,6 +1,7 @@
 from .plugin import Plugin
 from pynvim.api.nvim import Nvim
 import pynvim
+from typing import Any
 
 @pynvim.plugin
 class NeovimSpotify:
@@ -10,7 +11,6 @@ class NeovimSpotify:
     @pynvim.command("Spotify", sync=True)
     def spotify(self):
 
-        # this works for sure to create a buffer.
         buf = self.plugin.nvim.api.create_buf(False, True)
         self.plugin.get_currently_playing_track()
 
@@ -33,11 +33,12 @@ class NeovimSpotify:
             return
 
     @pynvim.command("SpotifySearch", nargs="*", sync=True)
-    def spotify_search(self, args):
+    def spotify_search(self, args) -> Any:
         if not args or not args[0]:
             self.plugin.nvim.command("echo 'Must provide a search query while using search command'")
             return []
         tracks = self.plugin.search(" ".join(args))
+        self.plugin.nvim.vars["spotify_search_results"] = tracks
         return tracks        
 
         

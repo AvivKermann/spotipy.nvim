@@ -81,4 +81,7 @@ class NeovimSpotify:
         user_input = self.plugin.nvim.api.input('Enter Spotify command: ')
 
         # Close the floating window after input
-        self.plugin.nvim.api.win_close(win_id)mmand entered: {user_input}\n")
+        self.plugin.nvim.api.win_close(win_id)
+
+        # Process the user input (this could be your Spotify command)
+        self.plugin.nvim.out_write(f"Spotify command entered: {user_input}\n")

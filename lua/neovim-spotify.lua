@@ -25,6 +25,7 @@ function M.search_tracks()
             height = 0.1, -- Adjust height of the picker window (10% of the screen height)
             preview_width = 0.4, -- Optional: Set the preview window width, you can remove this if not needed
         },
+        previewer = false,
         attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()
                 local input = action_state.get_current_line()

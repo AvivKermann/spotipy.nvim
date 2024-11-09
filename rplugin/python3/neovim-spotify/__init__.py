@@ -59,6 +59,8 @@ class NeovimSpotify:
                 f"Artist: {track.artist}\n"
                 f"Progress: {progress}/{duration}"
             )
-            self.plugin.nvim.api.notify(status_message, 0, {"title": "Spotify"})
-
+            lua_code = f"""
+            vim.notify("{status_message}", vim.log.levels.INFO, {{title = "Spotify"}})
+            """
+            self.plugin.nvim.command('lua ' + lua_code)
 

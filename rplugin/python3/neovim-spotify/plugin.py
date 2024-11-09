@@ -92,13 +92,10 @@ class Plugin:
         logging.info("Creating Anchor")
 
         buf = self.nvim.api.create_buf(False, True)
-        uis = self.nvim.api.ui_get_option()
-        if not uis:
-            logging.error("No UI found!")
-            return
-        ui = uis[0]
-        row = (float(ui['height']) / 2) - (float(self.HEIGHT) / 2)
-        col = (float(ui['width']) / 2) - (float(self.WIDTH) / 2) + 1.5
+        ui = self.nvim.api.get_current_win()
+        win_config = self.nvim.api.win_get_config(ui)
+        row = (float(win_config['height']) / 2) - (float(self.HEIGHT) / 2)
+        col = (float(win_config['width']) / 2) - (float(self.WIDTH) / 2) + 1.5
 
         opts = {
             "relative": "editor",

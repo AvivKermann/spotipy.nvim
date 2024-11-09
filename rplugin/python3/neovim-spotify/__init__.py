@@ -67,8 +67,8 @@ class NeovimSpotify:
 
         # Open the window
         win_id = self.plugin.nvim.api.open_win(self.plugin.nvim.api.get_current_buf(), False, opts)
-
-        # Set some text inside the window (e.g., prompt for Spotify input)
+        buf = self.plugin.nvim.api.get_current_buf()
+        self.plugin.nvim.api.buf_set_option(buf, "modifiable", True)
         self.plugin.nvim.api.buf_set_lines(self.plugin.nvim.api.get_current_buf(), 0, -1, False, ['Enter Spotify command:'])
 
         # Optionally, use input() to ask for user input (if it's a simple one-liner)

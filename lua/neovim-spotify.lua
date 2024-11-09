@@ -64,6 +64,7 @@ local spotify = function (opts)
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":SpotifyPlay(" .. selection.uri .. ")"
+                print(vim.inspect(cmd))
                 vim.api.nvim_command(cmd)
             end)
             return true

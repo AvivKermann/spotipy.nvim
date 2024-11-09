@@ -1,7 +1,6 @@
 from .plugin import Plugin
 from pynvim.api.nvim import Nvim
 import pynvim
-import asyncio
 
 @pynvim.plugin
 class NeovimSpotify:
@@ -34,7 +33,7 @@ class NeovimSpotify:
             return
 
     @pynvim.command("SpotifySearch", nargs="*", sync=True)
-    async def spotify_search(self, args):
+    def spotify_search(self, args):
         if not args or not args[0]:
             self.plugin.nvim.command("echo 'Must provide a search query while using search command'")
             return []

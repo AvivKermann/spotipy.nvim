@@ -8,13 +8,13 @@ local conf = require("telescope.config").values
 local function finder_fn()
     return function(_)
         local res = vim.g.spotify_search_results
-        print(vim.inspect(entry))
         local results = {}
 
         for _, v in pairs(res) do
+
+            vim.notify(vim.inspect(v))
             table.insert(results, { artist = v.artist, title = v.title, uri = v.uri })
         end
-
         return results
     end
 end
@@ -46,7 +46,7 @@ local function entry_fn(opts)
             track = entry.title,
             uri = entry.uri,
             display = make_display,
-            ordinal = entry.title .. " " .. entry.artist,  -- using title and artist for sorting
+            ordinal = entry.title .. " " .. entry.artist,
         }
     end
 end

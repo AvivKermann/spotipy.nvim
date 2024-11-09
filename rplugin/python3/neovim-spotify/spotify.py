@@ -37,7 +37,7 @@ class Spotify:
             tracks = []
             results = self.spotify.search(q=query, type=search_type, limit=10)
             # we don't care because spotify basically always returns something.
-            for item in results[search_type + "s"]["items"]: # type: ignore
+             for item in results[search_type + "s"]["items"]: # type: ignore
                 tracks.append({
                     "title": item["name"],
                     "artist": item["artists"][0]["name"],

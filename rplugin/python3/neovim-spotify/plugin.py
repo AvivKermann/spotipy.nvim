@@ -127,7 +127,6 @@ class Plugin:
             "col": 0,   
             "style": "minimal",
             "zindex": 50, 
-            "focusable": True, 
         }
 
         win = self.nvim.api.open_win(buf, True, opts)

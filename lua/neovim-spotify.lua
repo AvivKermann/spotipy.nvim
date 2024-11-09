@@ -9,7 +9,7 @@ function M.search_tracks()
     pickers.new({}, {
         prompt_title = 'Search Spotify',
         finder = require('telescope.finders').new_table {
-            results = {}, -- Empty results to avoid displaying anything
+            results = {},
             entry_maker = function(entry)
                 return {
                     value = entry,
@@ -19,10 +19,11 @@ function M.search_tracks()
             end,
         },
         sorter = conf.generic_sorter({}),
-        previewer = false, -- Disable the preview window
+        previewer = false,
         layout_config = {
-            width = 0.5, -- Adjust the width of the input box (50% of screen width)
-            height = 0.1, -- Adjust the height of the input box (10% of screen height)
+            width = 0.5,
+            height = 0.1,
+            results_height = 0,
         },
         attach_mappings = function(prompt_bufnr, map)
             actions.select_default:replace(function()

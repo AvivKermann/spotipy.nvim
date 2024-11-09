@@ -63,7 +63,7 @@ local spotify = function (opts)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
-                local cmd = ":call SpotifyPlay('" .. selection.uri .. "')"
+                local cmd = ":SpotifyPlay(' " .. selection.uri .. "')"
                 vim.api.nvim_command(cmd)
             end)
             return true

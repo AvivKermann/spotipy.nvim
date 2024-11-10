@@ -1,6 +1,7 @@
 from .plugin import Plugin
 from pynvim.api.nvim import Nvim
 import pynvim
+import time
 
 @pynvim.plugin
 class NeovimSpotify:
@@ -50,6 +51,7 @@ class NeovimSpotify:
             self.plugin.nvim.command("echo 'Must provide a track uri'")
             return
         self.plugin.spotify.play(" ".join(args))
+        time.sleep(1)
         self.spotify_status()
 
     @pynvim.command("SpotifyStatus", sync=True)

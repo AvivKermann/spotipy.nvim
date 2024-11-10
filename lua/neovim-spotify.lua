@@ -140,7 +140,7 @@ function M.status:start()
 end
 
 function M.status:on_event(data)
-    print(vim.inspect(data))
+    print(vim.inspect(vim.g.spotify_status))
     if data then
         M._status_line = data[1]
     end

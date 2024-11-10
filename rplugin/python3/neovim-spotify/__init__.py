@@ -1,17 +1,15 @@
 from .plugin import Plugin
 from pynvim.api.nvim import Nvim
 import pynvim
-from typing import Dict
 
 @pynvim.plugin
 class NeovimSpotify:
     def __init__(self, nvim: Nvim):
         self.plugin = Plugin(nvim)
 
-    @pynvim.command("Spotify", sync=True)
+    @pynvim.command("SpotifyLine", sync=True)
     def spotify(self):
-
-        self.plugin.get_currently_playing_track()
+        return self.plugin.get_track_status()
 
     @pynvim.command("SpotifyToggle", sync=True)
     def spotify_toggle(self):
@@ -54,7 +52,7 @@ class NeovimSpotify:
 
     @pynvim.command("SpotifyStatus", sync=True)
     def spotify_status(self):
-        track = self.plugin.get_currently_playing_track()
+        track = self.plugin.spotify.get_currently_playing_track()
         if track.exists:
             progress = track.get_progress()
             duration = track.get_duration()

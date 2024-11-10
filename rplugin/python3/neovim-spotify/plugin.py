@@ -2,7 +2,7 @@ from pynvim.api.buffer import Buffer
 from pynvim.api.nvim import Nvim
 from pynvim.api.window import Window
 from typing import Dict, Union
-from .spotify import Spotify, Track
+from .spotify import Spotify
 import logging
 
 class Plugin:
@@ -20,9 +20,14 @@ class Plugin:
 
 
 
-    def get_currently_playing_track(self) -> Track:
+    def get_track_status(self) -> str:
         self.logger.info("Getting currently playing track")
-        return self.spotify.get_currently_playing_track()
+        track = self.spotify.get_currently_playing_track()
+        if track.exists:
+            return f"{track.title} by {track.artist}"
+        return ""
+            
+
 
 
     def search(self, query: str, search_type: str = "track"):

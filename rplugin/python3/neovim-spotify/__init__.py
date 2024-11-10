@@ -24,10 +24,12 @@ class NeovimSpotify:
         args = args[0].strip().lower() if args else ""
         if args in ["-n", "next"]:
             self.plugin.spotify.next()
+            time.sleep(0.5)
             self.spotify_status()
             return
         elif args in ["-p", "prev"]:
             self.plugin.spotify.prev()
+            time.sleep(0.5)
             self.spotify_status()
             return
 
@@ -51,7 +53,7 @@ class NeovimSpotify:
             self.plugin.nvim.command("echo 'Must provide a track uri'")
             return
         self.plugin.spotify.play(" ".join(args))
-        time.sleep(1)
+        time.sleep(0.5)
         self.spotify_status()
 
     @pynvim.command("SpotifyStatus", sync=True)

@@ -135,17 +135,16 @@ end
 function M.status:start()
     local timer = vim.loop.new_timer()
     timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function()
-        print("Updating Spotify status")
         vim.cmd("SpotifyLine")
         self:on_event()
     end))
 end
 
 function M.status:on_event()
-    print(vim.inspect(vim.g.spotify_line))
     local data = vim.g.spotify_line
     if data then
-        M._status_line = data[1]
+        print(vim.inspect(data[0]))
+        M._status_line = data
     end
 end
 

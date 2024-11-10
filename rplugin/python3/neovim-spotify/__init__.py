@@ -1,6 +1,7 @@
 from pynvim.api.nvim import Nvim
-import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+from dataclasses import dataclass
+import spotipy
 import pynvim
 import time
 import os
@@ -181,9 +182,6 @@ class Spotify:
         except Exception as e:
             self.logger.error(f"Error in toggle: {e}")
             return
-
-    def like(self, uri: str):
-        pass
 
     def transfer_playback_to_device(self):
         devices = self.spotify.devices()

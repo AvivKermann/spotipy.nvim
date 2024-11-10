@@ -145,7 +145,7 @@ end
 function M.status:start()
     local timer = vim.loop.new_timer()
     timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function()
-        vim.cmd("SpotifyLine")
+        vim.cmd("silent! SpotifyLine")
         self:on_event()
     end))
 end
@@ -156,10 +156,3 @@ function M.status:on_event()
         M._status_line = data
     end
 end
-
-function M.status:listen()
-    return M._status_line
-end
-
-return M
-

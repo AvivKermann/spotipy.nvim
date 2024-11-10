@@ -127,13 +127,18 @@ function M.setup(_)
     vim.api.nvim_set_keymap("n", "<leader>mt", "SpotifyToggle", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mn", "SpotifyPlayback -n", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mp", "SpotifyPlayback -p", { noremap = true, silent = true })
-    M.status:start()
+    vim.api.nvim_set_keymap("n", "<leader>ms", "lua require('neovim-spotify').search()", { noremap = true, silent = true })
 
 end
 
 function M.init()
     local opts = require'telescope.themes'.get_dropdown{}
     spotify(opts)
+end
+
+function M.search()
+    local query = vim.fn.input("Search Spotify: ")
+    vim.cmd("SpotifySearch " .. vim.fn.shellescape(query))
 end
 
 function M.status:start()

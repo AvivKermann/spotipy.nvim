@@ -73,41 +73,6 @@ local spotify = function (opts)
     }):find()
 end
 
-local list_devices = function (opts)
-    opts = opts or {}
-    pickers.new(opts, {
-        prompt_title = "Connect to a Device",
-        finder = finders.new_dynamic({
-            entry_maker = function (entry)
-                return {
-                    value = entry,
-                    display = entry[1],
-                    ordinal = entry[1]
-                }
-            end,
-            fn =  function(_)
-                local res = vim.g.spotify_devices
-                local results = {}
-
-                for _, v in pairs(res) do
-                    table.insert(results, { v[1] })
-                end
-
-                return results
-            end
-        }),
-        sorter = conf.generic_sorter(opts),
-        attach_mappings = function (prompt_bufnr, _)
-            actions.select_default:replace(function()
-                actions.close(prompt_bufnr)
-                local selection = actions_state.get_selected_entry()
-                vim.g.spotify_device = selection.value
-            end)
-            return true
-        end
-    }):find()
-end
-
 local M = {
     opts = {
         status = {
@@ -140,25 +105,3 @@ function M.search()
     local query = vim.fn.input("Search Spotify: ")
     vim.cmd("SpotifySearch " .. vim.fn.shellescape(query))
 end
-
-function M.status:start()
-    local timer = vim.loop.new_timer()
-    timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function()
-        vim.cmd("SpotifyLine")
-        self:on_event()
-    end))
-end
-
-function M.status:on_event()
-    local data = vim.g.spotify_line
-    if data then
-        M._status_line = data
-    end
-end
-
-function M.status:listen()
-    return M._status_line
-end
-
-return M
-

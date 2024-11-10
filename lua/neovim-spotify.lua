@@ -125,10 +125,10 @@ function M.setup(opts)
 
     opts = opts or {}
     M.opts = vim.tbl_deep_extend("force", M.opts, opts)
-    vim.api.nvim_set_keymap("n", "<leader>mt", "SpotifyToggle", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>mn", "SpotifyPlayback -n", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>mp", "SpotifyPlayback -p", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>ms", "lua require('neovim-spotify').search()", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>mt", ":SpotifyToggle<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>mn", ":SpotifyPlayback -n<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>mp", ":SpotifyPlayback -p<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('neovim-spotify').search()<CR>", { noremap = true, silent = true })
 
 end
 

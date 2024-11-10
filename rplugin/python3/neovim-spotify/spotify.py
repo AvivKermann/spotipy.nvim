@@ -31,13 +31,14 @@ class Track:
 class Spotify:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.token = None
         try:
             self.spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
                 client_id = os.getenv("CLIENT_ID"),
                 client_secret = os.getenv("CLIENT_SECRET"),
                 redirect_uri = os.getenv("REDIRECT_URI"),
                 scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify",
-                cache_path=".spotify_cache"
+                cache_path=self.token
             ))
         except Exception as e:
             self.logger.critical(f"Error initializing Spotify client: {e}")

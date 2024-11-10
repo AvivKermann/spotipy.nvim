@@ -124,6 +124,7 @@ M.namespace = 'Spotify'
 function M.setup(_)
     -- M.opts = vim.tbl_deep_extend("force", M.opts, opts)
     vim.api.nvim_set_keymap("n", "<Leader>ms", ":lua spotify_search_input()<CR>", { noremap = true, silent = true })
+    M.status:start()
 end
 
 function M.init()

@@ -50,6 +50,7 @@ class NeovimSpotify:
             self.plugin.nvim.command("echo 'Must provide a track uri'")
             return
         self.plugin.spotify.play(" ".join(args))
+        self.spotify_status()
 
     @pynvim.command("SpotifyStatus", sync=True)
     def spotify_status(self):

@@ -73,22 +73,22 @@ local spotify = function (opts)
     }):find()
 end
 
-local M = {
-    opts = {
-        status = {
-            update_interval = 10000,
-            format = '%s %t by %a'
-        }
-    },
-    status = {},
-    _status_line = ""
-}
+-- local M = {
+--     opts = {
+--         status = {
+--             update_interval = 10000,
+--             format = '%s %t by %a'
+--         }
+--     },
+--     status = {},
+--     _status_line = ""
+-- }
 
+local M = {}
 M.namespace = 'Spotify'
 
-function M.setup(_)
+function M.setup()
 
-    M.opts = vim.tbl_deep_extend("force", M.opts, opts)
     vim.api.nvim_set_keymap("n", "<leader>mt", "SpotifyToggle", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mn", "SpotifyPlayback -n", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mp", "SpotifyPlayback -p", { noremap = true, silent = true })
@@ -105,3 +105,5 @@ function M.search()
     local query = vim.fn.input("Search Spotify: ")
     vim.cmd("SpotifySearch " .. vim.fn.shellescape(query))
 end
+
+return M

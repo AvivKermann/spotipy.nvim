@@ -5,6 +5,12 @@ local actions_state = require "telescope.actions.state"
 local entry_display = require "telescope.pickers.entry_display"
 local conf = require("telescope.config").values
 
+local function run_cmd(cmd)
+    local async_task = vim.loop.new_async(function()
+        vim.api.nvim_command(cmd)
+    end)
+end
+
 local function finder_fn()
     return function(_)
         local res = vim.g.spotify_search_results
@@ -64,12 +70,13 @@ local spotify = function (opts)
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":SpotifyPlay " .. selection.uri
-                vim.api.nvim_command(cmd)
+                run_cmd(cmd)
             end)
             return true
         end
     }):find()
 end
+
 
 local M = {
     opts = {

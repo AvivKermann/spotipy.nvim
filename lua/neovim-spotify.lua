@@ -63,9 +63,7 @@ local spotify = function (opts)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
-                print(vim.inspect(selection.uri))
                 local cmd = ":SpotifyPlay " .. selection.uri
-                print(vim.inspect(cmd))
                 vim.api.nvim_command(cmd)
             end)
             return true
@@ -138,8 +136,24 @@ function M.init()
 end
 
 function M.search()
-    local query = vim.fn.input("Search Spotify: ")
-    vim.cmd("SpotifySearch " .. vim.fn.shellescape(query))
+    local win_width = vim.o.columns
+    local win_height = vim.o.lines
+
+    local float_opts = {
+    relative = 'editor',
+    width = 40,
+    height = 1,
+    col = (win_width / 2) - 20,
+    row = (win_height / 2) - 1,
+    style = 'minimal',
+    border = 'single'
+    }
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_open_win(buf, true, float_opts)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, { 'Search Spotify: ' })
+    vim.cmd('startinsert')  -- Start insert mode for typing
+    local query = vim.fn.input('Search Spotify: ')
+    vim.cmd('SpotifySearch ' .. vim.fn.shellescape(query))
 end
 
 function M.status:start()

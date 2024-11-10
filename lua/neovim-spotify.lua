@@ -64,7 +64,7 @@ local spotify = function (opts)
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":silent SpotifyPlay " .. selection.uri
-                vim.defer_fn(function()
+                vim.schedule(function()
                     vim.api.nvim_command(cmd)
                 end, 0)
             end)

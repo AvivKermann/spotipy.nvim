@@ -38,7 +38,7 @@ class Spotify:
                 client_secret = os.getenv("CLIENT_SECRET"),
                 redirect_uri = os.getenv("REDIRECT_URI"),
                 scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify",
-                cache_path ="~/.local/share/nvim/site/pack/packer/start/neovim-spotify/"
+                cache_path ="~/.cache/.spotify_cache"
             ))
         except Exception as e:
             self.logger.critical(f"Error initializing Spotify client: {e}")

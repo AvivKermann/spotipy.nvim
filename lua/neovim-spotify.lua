@@ -143,7 +143,6 @@ end
 function M.status:on_event()
     local data = vim.g.spotify_line
     if data then
-        print(vim.inspect(data[0]))
         M._status_line = data
     end
 end

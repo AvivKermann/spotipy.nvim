@@ -9,6 +9,7 @@ local function run_cmd(cmd)
     local async_task = vim.loop.new_async(function()
         vim.api.nvim_command(cmd)
     end)
+    async_task:send()
 end
 
 local function finder_fn()

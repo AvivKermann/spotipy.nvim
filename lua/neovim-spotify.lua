@@ -86,7 +86,7 @@ local M = {
 
 M.namespace = 'Spotify'
 
-function M.setup(_)
+function M.setup(opts)
 
     M.opts = vim.tbl_deep_extend("force", M.opts, opts)
     vim.api.nvim_set_keymap("n", "<leader>mt", "SpotifyToggle", { noremap = true, silent = true })

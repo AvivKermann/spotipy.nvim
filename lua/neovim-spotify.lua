@@ -4,6 +4,7 @@ local actions = require "telescope.actions"
 local actions_state = require "telescope.actions.state"
 local entry_display = require "telescope.pickers.entry_display"
 local conf = require("telescope.config").values
+local lualine = require("lualine")
 
 local function finder_fn()
     return function(_)
@@ -122,6 +123,7 @@ M.namespace = 'Spotify'
 function M.setup(opts)
 
     opts = opts or {}
+    lualine.options.sections.lualine_c = { "Testing lua line"}
     M.opts = vim.tbl_deep_extend("force", M.opts, opts)
     vim.api.nvim_set_keymap("n", "<leader>mt", ":SpotifyToggle<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mn", ":SpotifyPlayback -n<CR>", { noremap = true, silent = true })

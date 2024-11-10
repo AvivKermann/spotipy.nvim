@@ -63,7 +63,9 @@ local spotify = function (opts)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
+                print(vim.inspect(selection.uri))
                 local cmd = ":SpotifyPlay " .. selection.uri
+                print(vim.inspect(cmd))
                 vim.api.nvim_command(cmd)
             end)
             return true
@@ -106,7 +108,6 @@ local list_devices = function (opts)
     }):find()
 end
 
-
 local M = {
     opts = {
         status = {
@@ -120,14 +121,13 @@ local M = {
 
 M.namespace = 'Spotify'
 
-function M.setup(opts)
+function M.setup(_)
 
-    opts = opts or {}
     M.opts = vim.tbl_deep_extend("force", M.opts, opts)
-    vim.api.nvim_set_keymap("n", "<leader>mt", ":SpotifyToggle<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>mn", ":SpotifyPlayback -n<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>mp", ":SpotifyPlayback -p<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('neovim-spotify').search()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>mt", "SpotifyToggle", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>mn", "SpotifyPlayback -n", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>mp", "SpotifyPlayback -p", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>ms", "lua require('neovim-spotify').search()", { noremap = true, silent = true })
 
 end
 
@@ -137,6 +137,28 @@ function M.init()
 end
 
 function M.search()
-    local query = vim.fn.input('Search Spotify: ')
-    vim.cmd('SpotifySearch ' .. vim.fn.shellescape(query))
+    local query = vim.fn.input("Search Spotify: ")
+    vim.cmd("SpotifySearch " .. vim.fn.shellescape(query))
 end
+
+function M.status:start()
+    local timer = vim.loop.new_timer()
+    timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function()
+        vim.cmd("SpotifyLine")
+        self:on_event()
+    end))
+end
+
+function M.status:on_event()
+    local data = vim.g.spotify_line
+    if data then
+        M._status_line = data
+    end
+end
+
+function M.status:listen()
+    return M._status_line
+end
+
+return M
+

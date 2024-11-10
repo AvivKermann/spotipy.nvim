@@ -121,9 +121,8 @@ local M = {
 M.namespace = 'Spotify'
 
 function M.setup(opts)
-
+    lualine.sections.lualine_c = {"testing lua line"}
     opts = opts or {}
-    lualine.options.sections.lualine_c = { "Testing lua line"}
     M.opts = vim.tbl_deep_extend("force", M.opts, opts)
     vim.api.nvim_set_keymap("n", "<leader>mt", ":SpotifyToggle<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mn", ":SpotifyPlayback -n<CR>", { noremap = true, silent = true })

@@ -111,9 +111,6 @@ class Spotify:
             self.logger.error(f"Error in toggle: {e}")
             return
 
-    def like(self, uri: str):
-        pass
-
     def transfer_playback_to_device(self):
         devices = self.spotify.devices()
         if devices and "devices" in devices:
@@ -135,32 +132,33 @@ class Spotify:
                     return device["id"]
 
     def next(self):
-        try:
+        # try:
             # make sure the device is connected.
-            self.transfer_playback_to_device()
-            self.spotify.next_track()
-            playback = self.spotify.current_playback()
-
-            # auto start the track after skipping
-            if playback and not playback.get("is_playing"):
-                self.spotify.start_playback()
-            self.logger.info("Skipped to the next track.")
-        except Exception as e:
-            self.logger.error(f"Error skipping to the next track: {e}")
+            # why do we care? if the device is not connected, there isn't a song anyway...
+            # self.transfer_playback_to_device()
+        self.spotify.next_track()
+        #     playback = self.spotify.current_playback()
+        #
+        #     # auto start the track after skipping
+        #     if playback and not playback.get("is_playing"):
+        #         self.spotify.start_playback()
+        #     self.logger.info("Skipped to the next track.")
+        # except Exception as e:
+        #     self.logger.error(f"Error skipping to the next track: {e}")
 
     def prev(self):
-        try:
-            # make sure the device is connected.
-            self.transfer_playback_to_device()
-            self.spotify.previous_track()
-            playback = self.spotify.current_playback()
-
-            # auto start the track after going back
-            if playback and not playback.get("is_playing"):
-                self.spotify.start_playback()
-            self.logger.info("Skipped to the previous track.")
-        except Exception as e:
-            self.logger.error(f"Error skipping to the previous track: {e}")
+        # try:
+        #     # make sure the device is connected.
+        #     self.transfer_playback_to_device()
+        self.spotify.previous_track()
+        #     playback = self.spotify.current_playback()
+        #
+        #     # auto start the track after going back
+        #     if playback and not playback.get("is_playing"):
+        #         self.spotify.start_playback()
+        #     self.logger.info("Skipped to the previous track.")
+        # except Exception as e:
+        #     self.logger.error(f"Error skipping to the previous track: {e}")
 
     def get_playlist(self):
         queue = self.spotify.queue()

@@ -162,3 +162,27 @@ class Spotify:
         except Exception as e:
             self.logger.error(f"Error skipping to the previous track: {e}")
 
+    def get_playlist(self):
+        queue = self.spotify.queue()
+        playlist = []
+        try:
+            assert queue is not None
+            tracks = [(track["name"], track["artists"][0]["name"]) for track in queue["queue"]]
+            for track in tracks:
+                title, artist = track
+                playlist.append({
+                    "title": title,
+                    "artist": artist
+                })
+
+            return playlist
+
+        except AssertionError:
+            # only return None if the queue is empty.
+            return None
+
+        except Exception:
+            return None
+
+
+

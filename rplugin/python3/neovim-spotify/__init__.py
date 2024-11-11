@@ -2,6 +2,7 @@ from pynvim.api.nvim import Nvim
 import pynvim
 import time
 from .plugin import Plugin
+from .spotify import Track
 
 @pynvim.plugin
 class NeovimSpotify:
@@ -24,13 +25,9 @@ class NeovimSpotify:
         args = args[0].strip().lower() if args else ""
         if args in ["-n", "next"]:
             self.plugin.spotify.next()
-            time.sleep(0.5)
-            self.spotify_status()
             return
         elif args in ["-p", "prev"]:
             self.plugin.spotify.prev()
-            time.sleep(0.5)
-            self.spotify_status()
             return
 
         else:
@@ -43,8 +40,8 @@ class NeovimSpotify:
             self.plugin.nvim.command("echo 'Must provide a search query while using search command'")
             return
         tracks = self.plugin.search(" ".join(args))
-        self.plugin.nvim.vars["spotify_search_results"] = tracks
-        self.plugin.nvim.vars["spotify_search_query"] = " ".join(args)
+        self.plugin.nvim.vars["spotify_results"] = tracks
+        self.plugin.nvim.vars["spotify_query"] = " ".join(args)
         self.plugin.nvim.exec_lua("require('neovim-spotify').init()")
         
     @pynvim.command("SpotifyPlay", nargs=1, sync=True)
@@ -71,5 +68,16 @@ class NeovimSpotify:
             vim.notify("{repr(status_message)[1:-1]}", vim.log.levels.INFO, {{title = "Spotify"}})
             """
             self.plugin.nvim.command('lua ' + lua_code)
+
+    @pynvim.command("SpotifyPlaylist", nargs=0, sync=True)
+    def spotify_playlist(self):
+        playlist = self.plugin.spotify.get_playlist()
+        if playlist is None:
+            return
+
+
+        self.plugin.nvim.vars["spotify_results"] = playlist
+        self.plugin.nvim.vars["spotify_query"] = "Current Playlist"
+        self.plugin.nvim.exec_lua("require('neovim-spotify').init()")
 
 

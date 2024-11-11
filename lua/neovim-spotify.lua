@@ -7,7 +7,7 @@ local conf = require("telescope.config").values
 
 local function finder_fn()
     return function(_)
-        local res = vim.g.spotify_search_results
+        local res = vim.g.spotify_results
         local results = {}
 
         for _, v in pairs(res) do
@@ -51,7 +51,7 @@ end
 
 local spotify = function (opts)
     opts = opts or {}
-    local query = vim.g.spotify_search_query
+    local query = vim.g.spotify_query
     pickers.new(opts, {
         prompt_title = "Showing Spotify results for: " .. query,
         finder = finders.new_dynamic({
@@ -91,6 +91,7 @@ function M.setup(opts)
 
     M.opts = vim.tbl_deep_extend("force", M.opts, opts or {})
     vim.api.nvim_set_keymap("n", "<leader>mt", ":SpotifyToggle<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>mp", ":SpotifyPlaylist", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mn", ":SpotifyPlayback -n<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mp", ":SpotifyPlayback -p<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('neovim-spotify').search()<CR>", { noremap = true, silent = true })

@@ -107,4 +107,22 @@ function M.search()
     vim.cmd("SpotifySearch " .. vim.fn.shellescape(query))
 end
 
+function M.status:start()
+    local timer = vim.loop.new_timer()
+    timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function ()
+        local status = vim.api.nvim_call_function("SpotifyLine", {})
+        self.on_event(status)
+    end))
+end
+
+function M.status:on_event(data)
+    if data then
+        M._status_line = data[1]
+    end
+end
+
+function M.status:listen()
+    return M._status_line
+end
+
 return M

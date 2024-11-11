@@ -167,12 +167,13 @@ class Spotify:
         playlist = []
         try:
             assert queue is not None
-            tracks = [(track["name"], track["artists"][0]["name"]) for track in queue["queue"]]
+            tracks = [(track["name"], track["artists"][0]["name"], track["uri"]) for track in queue["queue"]]
             for track in tracks:
-                title, artist = track
+                title, artist, uri = track
                 playlist.append({
                     "title": title,
-                    "artist": artist
+                    "artist": artist,
+                    "uri": uri
                 })
 
             return playlist

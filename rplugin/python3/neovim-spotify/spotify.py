@@ -189,5 +189,16 @@ class Spotify:
         except Exception:
             return []
 
+    def add_to_queue(self, uri: str, device_id: Optional[str] = None):
+        if not uri:
+            self.logger.error("Must provide a uri to add to queue.")
+            return
+        device_id = device_id or None
+        try:
+            self.spotify.add_to_queue(uri=uri, device_id=device_id)
+        except Exception:
+            self.logger.error("Error adding to queue")
+
+
 
 

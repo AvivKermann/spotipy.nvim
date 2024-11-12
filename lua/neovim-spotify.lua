@@ -59,14 +59,19 @@ local spotify = function (opts)
             fn = finder_fn()
         }),
         sorter = conf.generic_sorter(opts),
+        initial_mode = "normal",
         attach_mappings = function (prompt_bufnr, _)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":silent SpotifyPlay " .. selection.id
-                vim.schedule(function()
-                    vim.api.nvim_command(cmd)
-                end, 0)
+                vim.api.nvim_command(cmd)
+            end)
+            map("n", "C-CR>", function()
+                actions.close(prompt_bufnr)
+                local selection = actions_state.get_selected_entry()
+                local cmd = ":silent SpotifyAdd " .. selection.id
+                vim.api.nvim_command(cmd)
             end)
             return true
         end
@@ -96,6 +101,7 @@ local list_devices = function (opts)
             end
         }),
         sorter = conf.generic_sorter(opts),
+        initial_mode = "normal",
         attach_mappings = function(prompt_bufnr, _)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)

@@ -89,3 +89,12 @@ class NeovimSpotify:
         devices = self.plugin.spotify.get_devices()
         self.plugin.nvim.vars["spotify_devices"] = devices
         self.plugin.nvim.exec_lua("require('neovim-spotify').show_devices()")
+
+    @pynvim.command("SpotifyAdd", nargs=1, sync=False)
+    def spotify_add(self, args: str) -> None:
+        if not args or not args[0]:
+            self.plugin.nvim.command("echo 'Must provide a track'")
+
+        device_id = self.plugin.nvim.vars["spotify_device"]["id"]
+        self.plugin.spotify.add_to_queue(" ".join(args), device_id)
+

@@ -17,7 +17,7 @@ class NeovimSpotify:
     @pynvim.command("SpotifyToggle", sync=True)
     def spotify_toggle(self):
         self.plugin.spotify.toggle()
-        self.spotify_status()
+        #self.spotify_status()
 
 
     @pynvim.command("SpotifyPlayback", nargs=1, sync=True)

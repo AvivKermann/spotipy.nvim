@@ -67,7 +67,7 @@ local spotify = function (opts)
                 local cmd = ":silent SpotifyPlay " .. selection.id
                 vim.api.nvim_command(cmd)
             end)
-            map("n", "C-CR>", function()
+            actions.map("n", "C-CR>", function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":silent SpotifyAdd " .. selection.id

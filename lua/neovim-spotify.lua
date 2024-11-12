@@ -103,6 +103,12 @@ function M.init()
     spotify(opts)
 end
 
+function M.show_devices()
+    --TODO: Get list of devices and set the vim.g.spotify_device variable.
+    -- Then we will use if exists across all the other commands.
+    -- If there is no device, we will run without it.
+end
+
 function M.search()
     local query = vim.fn.input("Search Spotify: ")
     vim.cmd("SpotifySearch " .. vim.fn.shellescape(query))

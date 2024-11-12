@@ -44,6 +44,7 @@ class Spotify:
 
     def get_currently_playing_track(self):
         try:
+            self.transfer_playback_to_device()
             current_track = self.spotify.current_user_playing_track()
             if current_track and current_track["item"]:
                 track = Track(
@@ -135,7 +136,7 @@ class Spotify:
         # try:
             # make sure the device is connected.
             # why do we care? if the device is not connected, there isn't a song anyway...
-            # self.transfer_playback_to_device()
+        self.transfer_playback_to_device()
         self.spotify.next_track()
         #     playback = self.spotify.current_playback()
         #
@@ -149,7 +150,7 @@ class Spotify:
     def prev(self):
         # try:
         #     # make sure the device is connected.
-        #     self.transfer_playback_to_device()
+        self.transfer_playback_to_device()
         self.spotify.previous_track()
         #     playback = self.spotify.current_playback()
         #

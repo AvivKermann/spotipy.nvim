@@ -89,7 +89,6 @@ M.namespace = 'Spotify'
 
 function M.setup(opts)
 
-    vim.cmd("UpdateRemotePlugins")
     M.opts = vim.tbl_deep_extend("force", M.opts, opts or {})
     vim.api.nvim_set_keymap("n", "<leader>mt", ":SpotifyToggle<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>ml", ":SpotifyPlaylist<CR>", { noremap = true, silent = true })

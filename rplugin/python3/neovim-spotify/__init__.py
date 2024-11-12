@@ -51,7 +51,7 @@ class NeovimSpotify:
         if not args or not args[0]:
             self.plugin.nvim.command("echo 'Must provide a track uri'")
             return
-        device_id = self.plugin.nvim.vars["spotify_device"]["id"]
+        device_id = self.plugin.nvim.vars.get("spotify_device", "")
         self.plugin.spotify.play(" ".join(args), device_id)
         time.sleep(0.5)
         self.spotify_status()
@@ -95,6 +95,6 @@ class NeovimSpotify:
         if not args or not args[0]:
             self.plugin.nvim.command("echo 'Must provide a track'")
 
-        device_id = self.plugin.nvim.vars["spotify_device"]["id"]
+        device_id = self.plugin.nvim.vars.get("spotify_device", "")
         self.plugin.spotify.add_to_queue(" ".join(args), device_id)
 

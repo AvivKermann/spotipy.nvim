@@ -44,7 +44,6 @@ class Spotify:
 
     def get_currently_playing_track(self):
         try:
-            self.transfer_playback_to_device()
             current_track = self.spotify.current_user_playing_track()
             if current_track and current_track["item"]:
                 track = Track(

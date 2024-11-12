@@ -25,9 +25,11 @@ class NeovimSpotify:
         args = args[0].strip().lower() if args else ""
         if args in ["-n", "next"]:
             self.plugin.spotify.next()
+            self.spotify_status()
             return
         elif args in ["-p", "prev"]:
             self.plugin.spotify.prev()
+            self.spotify_status()
             return
 
         else:

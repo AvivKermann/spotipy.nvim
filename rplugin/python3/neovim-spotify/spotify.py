@@ -99,10 +99,11 @@ class Spotify:
     def toggle(self):
         try:
             playback = self.spotify.current_playback()
-            if playback is None or not playback.get("device"):
+            if playback is None:
                 self.transfer_playback_to_device()
 
-            if playback and playback.get("is_playing"):
+            assert playback is not None
+            if not playback.get("is_playing"):
                 self.spotify.pause_playback()
                 self.logger.info("Music paused.")
                 return

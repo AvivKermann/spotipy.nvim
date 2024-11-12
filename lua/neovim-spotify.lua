@@ -80,7 +80,7 @@ local list_devices = function (opts)
         finder = finders.new_dynamic({
             entry_maker = function(entry)
                 return {
-                    value = entry,
+                    value = entry.name,
                     display = entry.name,
                     ordinal = entry.name
                 }
@@ -89,7 +89,7 @@ local list_devices = function (opts)
                 local res = vim.g.spotify_devices
                 local results = {}
                 for _, v in pairs(res) do
-                    table.insert(results, {v.name})
+                    table.insert(results,{name = v.name, id = v.id})
                 end
                 return results
             end

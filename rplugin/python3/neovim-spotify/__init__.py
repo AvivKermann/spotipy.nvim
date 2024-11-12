@@ -9,18 +9,18 @@ class NeovimSpotify:
     def __init__(self, nvim: Nvim):
         self.plugin = Plugin(nvim)
 
-    @pynvim.function("SpotifyLine", sync=True)
+    @pynvim.function("SpotifyLine", sync=False)
     def spotify(self):
         self.plugin.nvim.vars["spotify_line"] = repr(self.plugin.get_track_status())
         return self.plugin.get_track_status()
 
-    @pynvim.command("SpotifyToggle", sync=True)
+    @pynvim.command("SpotifyToggle", sync=False)
     def spotify_toggle(self):
         self.plugin.spotify.toggle()
         self.spotify_status()
 
 
-    @pynvim.command("SpotifyPlayback", nargs=1, sync=True)
+    @pynvim.command("SpotifyPlayback", nargs=1, sync=False)
     def spotify_playback(self, args: str = ""):
         args = args[0].strip().lower() if args else ""
         if args in ["-n", "next"]:
@@ -34,7 +34,7 @@ class NeovimSpotify:
             self.plugin.nvim.command("echo 'Invalid argument. Use -n or next for next song, or -p or prev for previous song.'")
             return
 
-    @pynvim.command("SpotifySearch", nargs="*", sync=True)
+    @pynvim.command("SpotifySearch", nargs="*", sync=False)
     def spotify_search(self, args) -> None:
         if not args or not args[0]:
             self.plugin.nvim.command("echo 'Must provide a search query while using search command'")
@@ -44,7 +44,7 @@ class NeovimSpotify:
         self.plugin.nvim.vars["spotify_query"] = " ".join(args)
         self.plugin.nvim.exec_lua("require('neovim-spotify').init()")
         
-    @pynvim.command("SpotifyPlay", nargs=1, sync=True)
+    @pynvim.command("SpotifyPlay", nargs=1, sync=False)
     def spotify_play(self, args: str):
         if not args or not args[0]:
             self.plugin.nvim.command("echo 'Must provide a track uri'")
@@ -53,7 +53,7 @@ class NeovimSpotify:
         time.sleep(0.5)
         self.spotify_status()
 
-    @pynvim.command("SpotifyStatus", sync=True)
+    @pynvim.command("SpotifyStatus", sync=False)
     def spotify_status(self):
         track = self.plugin.spotify.get_currently_playing_track()
         if track.exists:
@@ -69,7 +69,7 @@ class NeovimSpotify:
             """
             self.plugin.nvim.command('lua ' + lua_code)
 
-    @pynvim.command("SpotifyPlaylist", nargs=0, sync=True)
+    @pynvim.command("SpotifyPlaylist", nargs=0, sync=False)
     def spotify_playlist(self):
         playlist = self.plugin.spotify.get_playlist()
         if playlist is None:

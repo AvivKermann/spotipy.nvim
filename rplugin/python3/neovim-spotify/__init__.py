@@ -54,7 +54,7 @@ class NeovimSpotify:
         self.spotify_status()
 
     @pynvim.function("SpotifyStatus", sync=False)
-    def spotify_status(self):
+    def spotify_status(self, _: str = ""):
         track = self.plugin.spotify.get_currently_playing_track()
         if track.exists:
             progress = track.get_progress()

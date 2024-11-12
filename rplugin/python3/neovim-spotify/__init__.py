@@ -17,7 +17,7 @@ class NeovimSpotify:
     @pynvim.command("SpotifyToggle", sync=True)
     def spotify_toggle(self):
         self.plugin.spotify.toggle()
-        #self.spotify_status()
+        self.spotify_status()
 
 
     @pynvim.command("SpotifyPlayback", nargs=1, sync=True)
@@ -53,8 +53,8 @@ class NeovimSpotify:
         time.sleep(0.5)
         self.spotify_status()
 
-    @pynvim.function("SpotifyStatus", sync=False)
-    def spotify_status(self, _: str = ""):
+    @pynvim.command("SpotifyStatus", sync=False)
+    def spotify_status(self):
         track = self.plugin.spotify.get_currently_playing_track()
         if track.exists:
             progress = track.get_progress()

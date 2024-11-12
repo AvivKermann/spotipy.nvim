@@ -60,14 +60,15 @@ local spotify = function (opts)
         }),
         sorter = conf.generic_sorter(opts),
         initial_mode = "normal",
-        attach_mappings = function (prompt_bufnr, _)
+        attach_mappings = function (prompt_bufnr, map)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":silent SpotifyPlay " .. selection.id
                 vim.api.nvim_command(cmd)
             end)
-            actions.map("n", "C-CR>", function()
+            
+            map('n', '<C-CR>', function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":silent SpotifyAdd " .. selection.id

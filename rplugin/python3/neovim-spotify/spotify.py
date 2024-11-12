@@ -3,6 +3,7 @@ from spotipy.oauth2 import SpotifyOAuth
 import os
 import logging
 from dataclasses import dataclass
+from typing import Optional
 logging.basicConfig(level=logging.INFO)
 
 
@@ -80,15 +81,12 @@ class Spotify:
         except Exception as e:
             self.logger.error(f"Error searching for tracks: {e}")
 
-    def play(self, uri: str):
+    def play(self, uri: str, device_id: Optional[str] = None):
         if not uri:
             self.logger.error("Must provide a uri to play.")
             return
-        device_id = self.get_device_id()
-        if not device_id:
-            self.logger.error("No device found.")
-            return
 
+        device_id = device_id or None
         try:
             self.spotify.start_playback(device_id=device_id, uris=[uri])
             self.logger.info(f"Playing {uri}")

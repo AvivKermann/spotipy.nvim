@@ -80,7 +80,8 @@ local list_devices = function (opts)
         finder = finders.new_dynamic({
             entry_maker = function(entry)
                 return {
-                    value = entry.name,
+                    name = entry.name,
+                    id = entry.id,
                     display = entry.name,
                     ordinal = entry.name
                 }

@@ -79,7 +79,12 @@ class NeovimSpotify:
 
 
         self.plugin.nvim.vars["spotify_results"] = playlist
-        self.plugin.nvim.vars["spotify_query"] = "Current Playlist"
+        self.plugin.nvim.vars["spotify_query"] = "Current Queue"
         self.plugin.nvim.exec_lua("require('neovim-spotify').init()")
 
 
+    @pynvim.command("SpotifyDevices", nargs=0, sync=False)
+    def spotify_devices(self) -> None:
+        devices = self.plugin.spotify.get_devices()
+        self.plugin.nvim.vars["spotify_devices"] = devices
+        self.plugin.nvim.exec_lua("require('neovim-spotify').show_devices()")

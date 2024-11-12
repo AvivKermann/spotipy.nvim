@@ -176,5 +176,20 @@ class Spotify:
         except Exception:
             return None
 
+    def get_devices(self):
+        try:
+            devices = []
+            results = self.spotify.devices()
+            assert results is not None
+            for device in results["devices"]:
+                devices.append({
+                    "name": device["name"],
+                    "id": device["id"]})
+
+            return devices
+
+        except Exception:
+            return []
+
 
 

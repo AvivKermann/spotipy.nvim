@@ -63,10 +63,43 @@ local spotify = function (opts)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
-                local cmd = ":silent SpotifyPlay " .. selection.uri
+                local cmd = ":silent SpotifyPlay " .. selection.id
                 vim.schedule(function()
                     vim.api.nvim_command(cmd)
                 end, 0)
+            end)
+            return true
+        end
+    }):find()
+end
+
+local list_devices = function (opts)
+    opts = opts or {}
+    pickers.new(opts, {
+        prompt_title = "Select a Spotify device to connect to",
+        finder = finders.new_dynamic({
+            entry_maker = function(entry)
+                return {
+                    value = entry,
+                    display = entry.name,
+                    ordinal = entry.name
+                }
+            end,
+            fn = function()
+                local res = vim.g.spotify_devices
+                local results = {}
+                for _, v in pairs(res) do
+                    table.insert(results, {v.name})
+                end
+                return results
+            end
+        }),
+        sorter = conf.generic_sorter(opts),
+        attach_mappings = function(prompt_bufnr, _)
+            actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = actions_state.get_selected_entry()
+                vim.g.spotify_device = selection.id
             end)
             return true
         end
@@ -104,9 +137,8 @@ function M.init()
 end
 
 function M.show_devices()
-    --TODO: Get list of devices and set the vim.g.spotify_device variable.
-    -- Then we will use if exists across all the other commands.
-    -- If there is no device, we will run without it.
+    local opts = require'telescope.themes'.get_dropdown{}
+    list_devices(opts)
 end
 
 function M.search()

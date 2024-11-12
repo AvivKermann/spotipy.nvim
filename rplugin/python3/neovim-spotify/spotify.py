@@ -136,7 +136,7 @@ class Spotify:
         # try:
             # make sure the device is connected.
             # why do we care? if the device is not connected, there isn't a song anyway...
-        self.transfer_playback_to_device()
+        #self.transfer_playback_to_device()
         self.spotify.next_track()
         #     playback = self.spotify.current_playback()
         #
@@ -150,7 +150,7 @@ class Spotify:
     def prev(self):
         # try:
         #     # make sure the device is connected.
-        self.transfer_playback_to_device()
+        #self.transfer_playback_to_device()
         self.spotify.previous_track()
         #     playback = self.spotify.current_playback()
         #

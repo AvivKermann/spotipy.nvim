@@ -99,7 +99,7 @@ local list_devices = function (opts)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
-                vim.g.spotify_device = selection.id
+                vim.g.spotify_device = selection
             end)
             return true
         end

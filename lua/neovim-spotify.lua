@@ -119,7 +119,6 @@ local M = {
     opts = {
         status = {
             update_interval = 1,
-            format = '%s %t by %a'
         }
     },
     status = {},
@@ -170,6 +169,7 @@ function M.status:on_event(data)
     end
 end
 function M.status:listen()
+    print(M._status_line)
     return M._status_line
 end
 

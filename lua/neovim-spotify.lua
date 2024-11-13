@@ -118,7 +118,7 @@ end
 local M = {
     opts = {
         status = {
-            update_interval = 1,
+            update_interval = 100,
         }
     },
     status = {},
@@ -164,12 +164,12 @@ end
 
 function M.status:on_event(data)
     if data then
-        print("on event runs")
+        print(data)
         M._status_line = data
+        print(M._status_line)
     end
 end
 function M.status:listen()
-    print(M._status_line)
     return M._status_line
 end
 

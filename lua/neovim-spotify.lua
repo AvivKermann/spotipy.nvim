@@ -68,13 +68,13 @@ local spotify = function (opts)
                 vim.api.nvim_command(cmd)
             end)
             -- This maps control to add to queue instead of playing immediately.
-            map('n', '<C-CR>', function()
+            map('n', '<C-c>', function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":silent SpotifyAdd " .. selection.uri
                vim.api.nvim_command(cmd)
             end)
-            map('i', '<C-CR>', function()
+            map('i', '<C-c>', function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":silent SpotifyAdd " .. selection.uri

@@ -165,6 +165,7 @@ end
 
 function M.status:on_event(data)
     if data then
+        print("on event runs")
         M._status_line = data
     end
 end

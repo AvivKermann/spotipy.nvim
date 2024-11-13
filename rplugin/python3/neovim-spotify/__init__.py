@@ -10,7 +10,7 @@ class NeovimSpotify:
         self.plugin = Plugin(nvim)
 
     @pynvim.function("SpotifyLine", sync=False)
-    def spotify(self):
+    def spotify(self, _):
         self.plugin.nvim.vars["spotify_line"] = self.plugin.get_track_status()
 
     @pynvim.command("SpotifyToggle", sync=True)

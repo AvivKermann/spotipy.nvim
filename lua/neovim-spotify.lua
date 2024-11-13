@@ -159,7 +159,7 @@ function M.status:start()
     timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function()
         vim.api.nvim_call_function("SpotifyLine", {})
         local status = vim.g.spotify_line or nil
-        self.on_event(status)
+        self:on_event(status)
     end))
 end
 
@@ -169,7 +169,6 @@ function M.status:on_event(data)
         M._status_line = data
     end
 end
-
 function M.status:listen()
     return M._status_line
 end

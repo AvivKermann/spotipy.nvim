@@ -156,7 +156,7 @@ end
 
 function M.status:start()
     local timer = vim.loop.new_timer()
-    timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function ()
+    timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function()
         vim.api.nvim_call_function("SpotifyLine", {})
         local status = vim.g.spotify_line or nil
         self.on_event(status)

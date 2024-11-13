@@ -165,7 +165,6 @@ end
 
 function M.status:on_event(data)
     if data then
-        print(vim.inspect(vim.g.spotify_line))
         M._status_line = data
     end
 end

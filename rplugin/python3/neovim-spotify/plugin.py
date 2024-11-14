@@ -2,7 +2,7 @@ from pynvim.api.buffer import Buffer
 from pynvim.api.nvim import Nvim
 from pynvim.api.window import Window
 from typing import Dict, Union
-from .spotify import Spotify
+from .spotify import Spotify, Track
 import logging
 from dataclasses import dataclass
 from typing import Optional
@@ -23,12 +23,17 @@ class StatusBarIcons:
     progress_complete: str = "-"
     progress_incomplete: str = "."
     progress_mark: str = "●"
-    progress_bar_width: int = 32
-    status_bar_width: int = 32
+    progress_bar_width: int = 28
+    status_bar_width: int = 34
 
     @staticmethod
-    def str_bar(progress_bar: str, title: str, artist: str, album: str) -> str:
-        str_bar = f"{StatusBarIcons.track} {title}\n{StatusBarIcons.artist} {artist}\n{StatusBarIcons.album} {album}\n{progress_bar}"
+    def str_bar(progress_bar: str, track: Track) -> str:
+        str_bar = (
+            f"{StatusBarIcons.track} {track.title}\n"
+            f"{StatusBarIcons.artist} {track.artist}\n"
+            f"{StatusBarIcons.album} {track.album}\n"
+            f"{progress_bar} {track.get_progress()} / {track.get_duration()}"
+        )
 
         return str_bar
 
@@ -53,13 +58,7 @@ class Plugin:
         progress_time_sec = track.progress_ms // 1000
         duration_time_sec = track.duration_ms // 1000
         progress_bar = self.get_progress_bar(progress_time_sec // duration_time_sec, StatusBarIcons.progress_bar_width)
-        status_bar = StatusBarIcons.str_bar(
-            progress_bar=progress_bar,
-            title=track.title,
-            artist=track.artist,
-            album=track.album,
-            )
-        self.nvim.vars["testing"] = status_bar
+        status_bar = StatusBarIcons.str_bar(progress_bar, track)
         return status_bar
     
 

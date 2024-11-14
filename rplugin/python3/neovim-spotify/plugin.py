@@ -65,7 +65,7 @@ class Plugin:
             album=track.album,
             )
 
-        self.nvim.command(f"echo '{status_bar}'")
+        self.nvim.command(f"lua print(vim.inspect({status_bar})")
         return status_bar
     
 

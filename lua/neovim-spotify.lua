@@ -68,11 +68,17 @@ local spotify = function (opts)
                 vim.api.nvim_command(cmd)
             end)
             -- This maps control to add to queue instead of playing immediately.
-            map('n', '<C-CR>', function()
+            map('n', '<C-c>', function()
                 actions.close(prompt_bufnr)
                 local selection = actions_state.get_selected_entry()
                 local cmd = ":silent SpotifyAdd " .. selection.uri
-                vim.api.nvim_command(cmd)
+               vim.api.nvim_command(cmd)
+            end)
+            map('i', '<C-c>', function()
+                actions.close(prompt_bufnr)
+                local selection = actions_state.get_selected_entry()
+                local cmd = ":silent SpotifyAdd " .. selection.uri
+               vim.api.nvim_command(cmd)
             end)
             return true
         end
@@ -119,7 +125,6 @@ local M = {
     opts = {
         status = {
             update_interval = 10000,
-            format = '%s %t by %a'
         }
     },
     status = {},
@@ -156,18 +161,18 @@ end
 
 function M.status:start()
     local timer = vim.loop.new_timer()
-    timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function ()
-        local status = vim.api.nvim_call_function("SpotifyLine", {})
-        self.on_event(status)
+    timer:start(1000, M.opts.status.update_interval, vim.schedule_wrap(function()
+        vim.api.nvim_call_function("SpotifyLine", {})
+        local status = vim.g.spotify_line or nil
+        self:on_event(status)
     end))
 end
 
 function M.status:on_event(data)
     if data then
-        M._status_line = data[1]
+        M._status_line = data
     end
 end
-
 function M.status:listen()
     return M._status_line
 end

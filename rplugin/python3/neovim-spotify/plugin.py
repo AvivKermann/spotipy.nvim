@@ -52,6 +52,7 @@ class Plugin:
 
     def get_current_status(self) -> Optional[str]:
         track = self.spotify.get_currently_playing_track()
+        self.nvim.command(f"lua print('{track.title}')")
         if not track.exists:
             return
 

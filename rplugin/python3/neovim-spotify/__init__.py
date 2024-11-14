@@ -60,7 +60,7 @@ class NeovimSpotify:
         status_message = self.plugin.get_current_status()
     
         lua_code = f"""
-        vim.notify("{repr(status_message)}", vim.log.levels.INFO, {{title = "Spotify"}})
+        vim.notify({repr(status_message)}, vim.log.levels.INFO, {{title = "Spotify"}})
         """
         self.plugin.nvim.command('lua ' + lua_code)
 

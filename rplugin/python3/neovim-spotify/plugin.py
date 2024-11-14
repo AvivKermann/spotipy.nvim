@@ -28,11 +28,7 @@ class StatusBarIcons:
 
     @staticmethod
     def str_bar(progress_bar: str, title: str, artist: str, album: str) -> str:
-        str_bar = \
-        f"{StatusBarIcons.track} {title}\n
-        {StatusBarIcons.artist} {artist}\n
-        {StatusBarIcons.album} {album}\n
-        {progress_bar}"
+        str_bar = f"{StatusBarIcons.track} {title}\n{StatusBarIcons.artist} {artist}\n{StatusBarIcons.album} {album}\n{progress_bar}"
 
         return str_bar
 

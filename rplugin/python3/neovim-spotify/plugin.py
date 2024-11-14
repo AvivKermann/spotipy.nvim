@@ -57,7 +57,7 @@ class Plugin:
 
         progress_time_sec = track.progress_ms // 1000
         duration_time_sec = track.duration_ms // 1000
-        progress_bar = self.get_progress_bar(progress_time_sec // duration_time_sec, StatusBarIcons.progress_bar_width)
+        progress_bar = self.get_progress_bar(track)
         status_bar = StatusBarIcons.str_bar(progress_bar, track)
         return status_bar
     
@@ -77,13 +77,20 @@ class Plugin:
         tracks = self.spotify.search(query=query, search_type=search_type)
         return tracks
 
-    def get_progress_bar(self, percentage: int, bar_length: int) -> str:
-        progress_bar = ""
-        middle = int(bar_length * percentage)
-        progress_bar = StatusBarIcons.progress_complete * (middle - 1)
-        progress_bar += StatusBarIcons.progress_mark
-        progress_bar += StatusBarIcons.progress_incomplete * (bar_length - middle)
-        return progress_bar 
+    def get_progress_bar(self, track: Track) -> str:
+        progress = int(track.get_progress())
+        duration = int(track.get_duration())
+        bar_length = StatusBarIcons.progress_bar_width  # Total length of the progress bar
+
+        if duration == 0:
+            return StatusBarIcons.progress_incomplete * bar_length
+        progress_position = int((progress / duration) * bar_length)
+        progress_bar = (
+            StatusBarIcons.progress_complete * progress_position
+            + StatusBarIcons.progress_mark
+            + StatusBarIcons.progress_incomplete * (bar_length - progress_position - 1)
+        )
+        return progress_bar
 
 
 

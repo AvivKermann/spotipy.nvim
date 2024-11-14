@@ -18,7 +18,6 @@ class Track:
     volume: int = 100
     duration_ms: int = 0
     progress_ms: int = 0
-    is_shuffle: bool = False
 
 
     def get_progress(self) -> str:
@@ -59,7 +58,6 @@ class Spotify:
                     duration_ms = current_track["item"]["duration_ms"],
                     progress_ms = current_track["progress_ms"],
                     exists = True,
-                    is_shuffle = current_track["shuffle_state"],
                     album = current_track["item"]["album"]["name"]
                 )
                 return track

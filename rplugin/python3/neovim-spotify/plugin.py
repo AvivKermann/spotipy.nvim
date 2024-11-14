@@ -55,6 +55,7 @@ class Plugin:
         if not track.exists:
             return
 
+        self.nvim.command("echo 'Track actually exists'")
         progress_time_sec = track.progress_ms // 1000
         duration_time_sec = track.duration_ms // 1000
         progress_bar = self.get_progress_bar(progress_time_sec // duration_time_sec, StatusBarIcons.progress_bar_width)
@@ -64,8 +65,7 @@ class Plugin:
             artist=track.artist,
             album=track.album,
             )
-
-        self.nvim.command(f"lua print(vim.inspect({status_bar})")
+        self.nvim.vars["testing"] = status_bar
         return status_bar
     
 

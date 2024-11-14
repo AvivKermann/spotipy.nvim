@@ -51,7 +51,6 @@ class Plugin:
 
 
     def get_current_status(self) -> Optional[str]:
-        self.nvim.command("echo 'Getting current status'")
         track = self.spotify.get_currently_playing_track()
         if not track.exists:
             return
@@ -66,6 +65,7 @@ class Plugin:
             album=track.album,
             )
 
+        self.nvim.command(f"echo '{status_bar}'")
         return status_bar
     
 

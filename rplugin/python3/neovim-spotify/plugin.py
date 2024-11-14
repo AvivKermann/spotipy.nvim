@@ -78,8 +78,8 @@ class Plugin:
         return tracks
 
     def get_progress_bar(self, track: Track) -> str:
-        progress = int(track.get_progress())
-        duration = int(track.get_duration())
+        progress = self.time_str_to_seconds(track.get_progress())
+        duration = self.time_str_to_seconds(track.get_duration())
         bar_length = StatusBarIcons.progress_bar_width  # Total length of the progress bar
 
         if duration == 0:
@@ -91,6 +91,10 @@ class Plugin:
             + StatusBarIcons.progress_incomplete * (bar_length - progress_position - 1)
         )
         return progress_bar
+
+    def time_str_to_seconds(self,time_str: str) -> int:
+        minutes, seconds = time_str.split(":")
+        return int(minutes) * 60 + int(seconds)
 
 
 

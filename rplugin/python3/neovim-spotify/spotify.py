@@ -12,9 +12,14 @@ class Track:
     exists: bool 
     title: str = ""
     artist: str = ""
+    album: str = ""
+    device: str = ""
     uri: str = ""
+    volume: int = 100
     duration_ms: int = 0
     progress_ms: int = 0
+    is_shuffle: bool = False
+
 
     def get_progress(self) -> str:
         progress_seconds = self.progress_ms // 1000
@@ -53,7 +58,9 @@ class Spotify:
                     uri = current_track["item"]["uri"],
                     duration_ms = current_track["item"]["duration_ms"],
                     progress_ms = current_track["progress_ms"],
-                    exists = True
+                    exists = True,
+                    is_shuffle = current_track["shuffle_state"],
+                    album = current_track["item"]["album"]["name"]
                 )
                 return track
             else:

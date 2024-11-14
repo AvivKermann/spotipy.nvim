@@ -12,7 +12,6 @@ class NeovimSpotify:
     @pynvim.function("SpotifyLine", sync=False)
     def spotify(self):
         self.plugin.nvim.vars["spotify_line"] = repr(self.plugin.get_track_status())
-        return self.plugin.get_track_status()
 
     @pynvim.command("SpotifyToggle", sync=True)
     def spotify_toggle(self):
@@ -58,19 +57,12 @@ class NeovimSpotify:
 
     @pynvim.command("SpotifyStatus", sync=False)
     def spotify_status(self):
-        track = self.plugin.spotify.get_currently_playing_track()
-        if track.exists:
-            progress = track.get_progress()
-            duration = track.get_duration()
-            status_message = (
-                f"Song: {track.title}\n"
-                f"Artist: {track.artist}\n"
-                f"Progress: {progress}/{duration}"
-            )
-            lua_code = f"""
-            vim.notify("{repr(status_message)[1:-1]}", vim.log.levels.INFO, {{title = "Spotify"}})
-            """
-            self.plugin.nvim.command('lua ' + lua_code)
+        status_message = self.plugin.get_current_status()
+    
+        lua_code = f"""
+        vim.notify("{status_message}", vim.log.levels.INFO, {{title = "Spotify"}})
+        """
+        self.plugin.nvim.command('lua ' + lua_code)
 
     @pynvim.command("SpotifyPlaylist", nargs=0, sync=False)
     def spotify_playlist(self):

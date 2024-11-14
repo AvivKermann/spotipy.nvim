@@ -20,8 +20,8 @@ class StatusBarIcons:
     volume_down: str = "🔉"
     volume_up: str = "🔊"
     device: str = "🔈"
-    progress_complete: str = "-"
-    progress_incomplete: str = "."
+    progress_complete: str = "─"
+    progress_incomplete: str = "┈"
     progress_mark: str = "●"
     progress_bar_width: int = 28
     status_bar_width: int = 34

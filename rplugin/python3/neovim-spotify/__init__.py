@@ -16,6 +16,8 @@ class NeovimSpotify:
     @pynvim.command("SpotifyToggle", sync=True)
     def spotify_toggle(self):
         device_id = self.plugin.nvim.vars.get("spotify_device", None)
+        if device_id:
+            device_id = device_id["id"]
         self.plugin.spotify.toggle(device_id)
         self.spotify_status()
 
@@ -52,6 +54,8 @@ class NeovimSpotify:
             self.plugin.nvim.command("echo 'Must provide a track uri'")
             return
         device_id = self.plugin.nvim.vars.get("spotify_device", None)
+        if device_id:
+            device_id = device_id["id"]
         self.plugin.spotify.play(" ".join(args), device_id)
         time.sleep(0.5)
         self.spotify_status()

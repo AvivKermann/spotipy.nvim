@@ -93,8 +93,10 @@ class Spotify:
 
         device_id = device_id or None
         try:
-            self.spotify.start_playback(device_id=device_id, uris=[uri])
-            self.logger.info(f"Playing {uri}")
+            self.add_to_queue(uri, device_id)
+            self.next()
+            # self.spotify.start_playback(device_id=device_id, uris=[uri])
+            # self.logger.info(f"Playing {uri}")
         except Exception as e:
             self.logger.error(f"Error playing track: {e}")
 

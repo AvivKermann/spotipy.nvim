@@ -58,7 +58,9 @@ class NeovimSpotify:
     @pynvim.command("SpotifyStatus", sync=False)
     def spotify_status(self):
         status_message = self.plugin.get_current_status()
-    
+        if not status_message:
+            return
+
         cmd = f"vim.notify({repr(status_message)}, vim.log.levels.INFO, {{title = 'Spotify'}})"
         self.plugin.nvim.exec_lua(cmd)
 

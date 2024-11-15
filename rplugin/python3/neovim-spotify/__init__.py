@@ -16,8 +16,7 @@ class NeovimSpotify:
     @pynvim.command("SpotifyToggle", sync=True)
     def spotify_toggle(self):
         device_id = self.plugin.nvim.vars.get("spotify_device", None)
-        if device_id:
-            device_id = device_id["id"]
+        device_id = device_id.get("id", None) if device_id else None
         playback = self.plugin.spotify.spotify.current_playback()
         if not playback and not device_id:
             status_message = ("No device found.\n"
@@ -28,7 +27,7 @@ class NeovimSpotify:
             return
 
         self.plugin.spotify.toggle(playback=playback, device_id=device_id)
-        time.sleep(0.5)
+        time.sleep(0.2)
         self.spotify_status()
 
 
@@ -37,16 +36,16 @@ class NeovimSpotify:
         args = args[0].strip().lower() if args else ""
         if args in ["-n", "next"]:
             self.plugin.spotify.next()
+            time.sleep(0.2)
             self.spotify_status()
-            return
+
         elif args in ["-p", "prev"]:
             self.plugin.spotify.prev()
+            time.sleep(0.2)
             self.spotify_status()
-            return
 
         else:
             self.plugin.nvim.command("echo 'Invalid argument. Use -n or next for next song, or -p or prev for previous song.'")
-            return
 
     @pynvim.command("SpotifySearch", nargs="*", sync=False)
     def spotify_search(self, args) -> None:

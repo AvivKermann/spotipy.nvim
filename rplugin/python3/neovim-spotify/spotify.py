@@ -3,7 +3,7 @@ from spotipy.oauth2 import SpotifyOAuth
 import os
 import logging
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Dict, Any
 logging.basicConfig(level=logging.INFO)
 
 
@@ -100,9 +100,8 @@ class Spotify:
         except Exception as e:
             self.logger.error(f"Error playing track: {e}")
 
-    def toggle(self, device_id: Optional[str] = None):
+    def toggle(self,playback: Optional[Dict[Any, Any]], device_id: Optional[str] = None):
         try:
-            playback = self.spotify.current_playback()
             if not playback or not playback["is_playing"]:
                 self.spotify.start_playback(device_id=device_id)
                 self.logger.info("Music started.")

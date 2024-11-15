@@ -18,7 +18,15 @@ class NeovimSpotify:
         device_id = self.plugin.nvim.vars.get("spotify_device", None)
         if device_id:
             device_id = device_id["id"]
-        self.plugin.spotify.toggle(device_id)
+        playback = self.plugin.spotify.spotify.current_playback()
+        if not playback and not device_id:
+            status_message = ("No device found.\n"
+                              "Use :SpotifyDevices to select a device\n"
+                              )
+            cmd = f"vim.notify({repr(status_message)}, vim.log.levels.INFO, {{title = 'Spotify'}})"
+            self.plugin.nvim.exec_lua(cmd)
+
+        self.plugin.spotify.toggle(playback=playback, device_id=device_id)
         self.spotify_status()
 
 

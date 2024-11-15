@@ -59,7 +59,9 @@ class NeovimSpotify:
     def spotify_status(self):
         status_message = self.plugin.get_current_status()
         if not status_message:
-            return
+            message = (f"No track is currently playing!\n"
+                       f"Use :SpotifySearch to search for a track\n")
+            cmd = f"vim.notify({repr(message)}, vim.log.levels.INFO, {{title = 'Spotify'}})"
 
         cmd = f"vim.notify({repr(status_message)}, vim.log.levels.INFO, {{title = 'Spotify'}})"
         self.plugin.nvim.exec_lua(cmd)

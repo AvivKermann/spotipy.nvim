@@ -103,14 +103,17 @@ class Spotify:
     def toggle(self, device_id: Optional[str] = None):
         try:
             playback = self.spotify.current_playback()
-            assert playback is not None
-
-            if playback["is_playing"]:
-                self.spotify.pause_playback(device_id=device_id)
-                self.logger.info("Music paused.")
-                return
-            else:
+            if not playback or not playback["is_playing"]:
                 self.spotify.start_playback(device_id=device_id)
+                self.logger.info("Music started.")
+
+            else:
+                assert playback is not None
+                # we can assert this because if playback is None we will start playback
+                if playback["is_playing"]:
+                    self.spotify.pause_playback(device_id=device_id)
+                    self.logger.info("Music paused.")
+
         except Exception as e:
             self.logger.error(f"Error in toggle: {e}")
             return

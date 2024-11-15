@@ -25,6 +25,7 @@ class NeovimSpotify:
                               )
             cmd = f"vim.notify({repr(status_message)}, vim.log.levels.INFO, {{title = 'Spotify'}})"
             self.plugin.nvim.exec_lua(cmd)
+            return
 
         self.plugin.spotify.toggle(playback=playback, device_id=device_id)
         self.spotify_status()

@@ -55,8 +55,6 @@ class Plugin:
         if not track.exists:
             return
 
-        progress_time_sec = track.progress_ms // 1000
-        duration_time_sec = track.duration_ms // 1000
         progress_bar = self.get_progress_bar(track)
         status_bar = StatusBarIcons.str_bar(progress_bar, track)
         return status_bar

@@ -27,7 +27,7 @@ class NeovimSpotify:
             return
 
         self.plugin.spotify.toggle(playback=playback, device_id=device_id)
-        time.sleep(0.2)
+        time.sleep(0.1)
         self.spotify_status()
 
 
@@ -36,12 +36,12 @@ class NeovimSpotify:
         args = args[0].strip().lower() if args else ""
         if args in ["-n", "next"]:
             self.plugin.spotify.next()
-            time.sleep(0.2)
+            time.sleep(0.1)
             self.spotify_status()
 
         elif args in ["-p", "prev"]:
             self.plugin.spotify.prev()
-            time.sleep(0.2)
+            time.sleep(0.1)
             self.spotify_status()
 
         else:
@@ -60,13 +60,15 @@ class NeovimSpotify:
     @pynvim.command("SpotifyPlay", nargs=1, sync=False)
     def spotify_play(self, args: str):
         if not args or not args[0]:
+
+            # we should probably change the notfify to util function and use all across the plugin.
             self.plugin.nvim.command("echo 'Must provide a track uri'")
             return
         device_id = self.plugin.nvim.vars.get("spotify_device", None)
         if device_id:
             device_id = device_id["id"]
         self.plugin.spotify.play(" ".join(args), device_id)
-        time.sleep(0.5)
+        time.sleep(0.1)
         self.spotify_status()
 
     @pynvim.command("SpotifyStatus", sync=False)

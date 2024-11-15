@@ -93,10 +93,15 @@ class Spotify:
 
         device_id = device_id or None
         try:
+            # We do this to avoid spotify's stupid cancel autoplay if played a track by uri.
+            # This way we technically never actually play by uri, we add and skip to it.
+            # I hate this as well as you... but this is what we get.
+            # I added the actually command to just play by uri but it's commented out.
+            # self.spotify.start_playback(device_id=device_id, uris=[uri])
+
             self.add_to_queue(uri, device_id)
             self.next()
-            # self.spotify.start_playback(device_id=device_id, uris=[uri])
-            # self.logger.info(f"Playing {uri}")
+            self.logger.info(f"Playing {uri}")
         except Exception as e:
             self.logger.error(f"Error playing track: {e}")
 

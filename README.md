@@ -122,11 +122,9 @@ Toggle the current playback on or off based on the current state.
 ```
 
 ### Default keymaps
-The following keymaps are set by default:
+The following keymaps are set by default, notice they all need to be prefixed with youre leader key.:
 | mode | key | Description |
 |---|---|---|
-| normal | Esc | Close
-| normal | q | Close
 | normal| <leader>ms | search for songs
 | normal | <leader>mt | toggle playback
 | normal | <leader>ml | show Playlist

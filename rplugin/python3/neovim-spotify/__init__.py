@@ -28,6 +28,7 @@ class NeovimSpotify:
         self.plugin.spotify.toggle(playback=playback, device_id=device_id)
         time.sleep(0.1)
         self.spotify_status()
+        self.spotify("")
 
 
     @pynvim.command("SpotifyPlayback", nargs=1, sync=True)
@@ -37,13 +38,11 @@ class NeovimSpotify:
             self.plugin.spotify.next()
             time.sleep(0.1)
             self.spotify_status()
-            self.spotify("")
 
         elif args in ["-p", "prev"]:
             self.plugin.spotify.prev()
             time.sleep(0.1)
             self.spotify_status()
-            self.spotify("")
 
         else:
             self.plugin.nvim.command("echo 'Invalid argument. Use -n or next for next song, or -p or prev for previous song.'")

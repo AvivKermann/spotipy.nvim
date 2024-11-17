@@ -4,6 +4,7 @@ import os
 import logging
 from dataclasses import dataclass
 from typing import Optional, Dict, Any
+from .plugin import StatusBarIcons
 logging.basicConfig(level=logging.INFO)
 
 
@@ -17,6 +18,7 @@ class Track:
     uri: str = ""
     volume: int = 100
     duration_ms: int = 0
+    playing: bool = False
     progress_ms: int = 0
 
 
@@ -58,7 +60,8 @@ class Spotify:
                     duration_ms = current_track["item"]["duration_ms"],
                     progress_ms = current_track["progress_ms"],
                     exists = True,
-                    album = current_track["item"]["album"]["name"]
+                    album = current_track["item"]["album"]["name"],
+                    playing = current_track["is_playing"]
                 )
                 return track
             else:

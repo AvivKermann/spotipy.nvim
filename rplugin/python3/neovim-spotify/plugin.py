@@ -63,8 +63,10 @@ class Plugin:
     def get_track_status(self) -> str:
         self.logger.info("Getting currently playing track")
         track = self.spotify.get_currently_playing_track()
+        button = StatusBarIcons.play if track.playing else StatusBarIcons.pause
+
         if track.exists:
-            return f"{track.title} by {track.artist}"
+            return f"{button} | {track.title} by {track.artist}"
         return ""
             
 

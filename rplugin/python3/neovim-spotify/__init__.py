@@ -2,7 +2,6 @@ from pynvim.api.nvim import Nvim
 import pynvim
 import time
 from .plugin import Plugin
-from .spotify import Track
 
 @pynvim.plugin
 class NeovimSpotify:

@@ -4,7 +4,7 @@ import os
 import logging
 from dataclasses import dataclass
 from typing import Optional, Dict, Any
-from .plugin import StatusBarIcons
+
 logging.basicConfig(level=logging.INFO)
 
 

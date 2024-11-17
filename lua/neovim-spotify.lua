@@ -131,7 +131,7 @@ local M = {
     _status_line = ""
 }
 
-M.namespace = 'Spotify'
+M.namespace = "Spotipy.nvim"
 
 function M.setup(opts)
 

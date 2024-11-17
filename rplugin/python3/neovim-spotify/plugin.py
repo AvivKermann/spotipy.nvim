@@ -31,11 +31,11 @@ class StatusBarIcons:
     def str_bar(progress_bar: str, track: Track) -> str:
         state = StatusBarIcons.play if track.playing else StatusBarIcons.pause
         str_bar = (
-            f" {StatusBarIcons.track} {track.title}\n"
-            f" {StatusBarIcons.artist} {track.artist}\n"
+            f" {StatusBarIcons.track} {track.title}\n\n"
+            f" {StatusBarIcons.artist} {track.artist}\n\n"
             f" {StatusBarIcons.album} {track.album}\n\n"
-            f" {StatusBarIcons.time} {track.get_progress()}  /  {track.get_duration()}\n"
-            f" {state} {progress_bar}\n"
+            f" {StatusBarIcons.time} {track.get_progress()}  /  {track.get_duration()}\n\n"
+            f" {state} {progress_bar}"
         )
 
         return str_bar

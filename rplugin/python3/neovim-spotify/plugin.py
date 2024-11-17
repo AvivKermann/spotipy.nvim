@@ -25,6 +25,7 @@ class StatusBarIcons:
     progress_mark: str = "●"
     progress_bar_width: int = 28
     status_bar_width: int = 34
+    time: str = "🕒"
 
     @staticmethod
     def str_bar(progress_bar: str, track: Track) -> str:
@@ -33,7 +34,7 @@ class StatusBarIcons:
             f" {StatusBarIcons.track} {track.title}\n"
             f" {StatusBarIcons.artist} {track.artist}\n"
             f" {StatusBarIcons.album} {track.album}\n\n"
-            f" \t\t{track.get_progress()}  /  {track.get_duration()}\n"
+            f" {StatusBarIcons.time} {track.get_progress()}  /  {track.get_duration()}\n"
             f" {state} {progress_bar}\n"
         )
 

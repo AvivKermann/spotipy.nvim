@@ -141,7 +141,7 @@ function M.setup(opts)
     vim.api.nvim_set_keymap("n", "<leader>mn", ":SpotifyPlayback -n<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>mp", ":SpotifyPlayback -p<CR>", { noremap = true, silent = true })
     vim.api.nvim_set_keymap("n", "<leader>md", ":SpotifyDevices<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('Spotipy.nvim').search()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('neovim-spotify').search()<CR>", { noremap = true, silent = true })
 
 end
 

@@ -33,8 +33,9 @@ class StatusBarIcons:
             f" {StatusBarIcons.track} {track.title}\n"
             f" {StatusBarIcons.artist} {track.artist}\n"
             f" {StatusBarIcons.album} {track.album}\n"
-            f" {progress_bar} {track.get_progress()} / {track.get_duration()}\n"
-            f" \t\t{state}\n"
+            f" {track.get_progress()}  /  {track.get_duration()}\n"
+            f" {progress_bar}\n"
+            f" {state}\n"
         )
 
         return str_bar

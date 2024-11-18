@@ -1,10 +1,11 @@
 # 🎵spotipy.nvim
 
-For productivity addicts who enjoy coding while listening to Spotify, and cannot lose their focus switching to the app to control their music.
+For Neovim users who want to have music at their fingertips.
+`spotipy.nvim` is a plugin that allows you to control your Spotify account from within Neovim.
 
-`spotipy.nvim` requires [pynvim](https://github.com/neovim/pynvim)
 
 ## Features
+
 -   Display/Filter the search results with Telescope  
 
 -   Currently playing statusline.  
@@ -23,6 +24,7 @@ For productivity addicts who enjoy coding while listening to Spotify, and cannot
 
 
 ## Requirements
+
 > `spotipy.nvim` is a python based plugin, using the [spotipy](https://github.com/spotipy-dev/spotipy) library to interact with the Spotify API.
 
 -   [pynvim](https://github.com/neovim/pynvim)
@@ -143,7 +145,7 @@ Show the next 20 songs in the queue.
 :SpotifyPlaylist
 ```
 
-### Searching for a Song
+### Searching for a Track
 Search for a song by providing its name and display the top 20 results.
 ```bash
 :SpotifySearch <song_name>

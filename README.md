@@ -99,10 +99,7 @@ In order to do so please follow these steps:
     ```
 1. Use the `source` command to apply the changes:
     ```bash
-    source ~/.bashrc
-    ```
-    ```bash
-    source ~/.zshrc
+    source ~/.bashrc  # or  source ~/.zshrc
     ```
 1. Use the `SpotifyDevices` command to connect to your Spotify account.
 1. A browser window will open, asking you to log in to your Spotify account.

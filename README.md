@@ -72,8 +72,8 @@ return {
 ```
 
 #### Notes
-Decreasing the `update_interval` value means more API calls in a shorter period. Because of the Spotify API rate limiter, setting this too low can block future requests.
-Besides that, keep in mind these updates are api calls, they will slow your computer down. 
+Decreasing the `update_interval` value means more API calls in a shorter period. Because of the Spotify API rate limiter, setting this too low can block future requests.  
+Besides that, keep in mind these updates are api calls, they will slow your computer down.   
 Generally, i use 5000ms as the update interval, and experience no issues.
 
 ## Connecting to Spotify’s API

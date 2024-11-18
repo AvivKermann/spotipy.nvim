@@ -205,7 +205,7 @@ require('lualine').setup {
     }
 }
 ```
-![1](screenshots/statusbar.jpg)
+![1](screenshots/statusbar.png)
 
 ### Notifications
 You can display the current status and many other notifications using the [nvim.notify](https://github.com/rcarriga/nvim-notify) plugin.

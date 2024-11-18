@@ -40,9 +40,9 @@ class Spotify:
         self.logger = logging.getLogger(__name__)
         try:
             self.spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
-                client_id = os.getenv("CLIENT_ID"),
-                client_secret = os.getenv("CLIENT_SECRET"),
-                redirect_uri = os.getenv("REDIRECT_URI"),
+                client_id = os.getenv("SPOTIFY_CLIENT_ID"),
+                client_secret = os.getenv("SPOTIFY_CLIENT_SECRET"),
+                redirect_uri = os.getenv("SPOTIFY_REDIRECT_URI"),
                 scope = "user-modify-playback-state user-read-playback-state user-read-currently-playing user-library-read user-library-modify",
                 cache_path ="/tmp/.spotify_cache"
             ))

@@ -28,7 +28,12 @@ For productivity addicts who enjoy coding while listening to Spotify, and cannot
 -   [pynvim](https://github.com/neovim/pynvim)
 -   [spotipy](https://github.com/spotipy-dev/spotipy)
 -   [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+-   [Spotify](https://www.spotify.com/us/download)
+-   [Spotify Premium](https://www.spotify.com/us/premium/)
 
+> As `spotipy.nvim` only handles the interaction with the Spotify API, you will need a Spotify Premium account to use this plugin.
+> As Spotify API does not handle the playback of the music, you will need to have the Spotify app running in the background.
+> The `spotipy.nvim` plugin was tested using on linux and mac using the full version of the Spotify app, it may not work with `spotifyd`.
 
 ## Installation
 
@@ -67,6 +72,42 @@ return {
 #### Notes
 Decreasing the `update_interval` value means more API calls in a shorter period. Because of the Spotify API rate limiter, setting this too low can block future requests.
 Besides that, keep in mind these updates are api calls, they will slow your computer down. 
+Generally, i use 5000ms as the update interval, and experience no issues.
+
+## Connecting to Spotify’s API
+
+`spotipy.nvim` needs to connect to Spotify’s API in order to find music by
+name, play tracks etc.
+
+In order to do so please follow these steps:
+
+1. Go to the [Spotify dashboard](https://developer.spotify.com/dashboard/applications).
+1. Click `Create an app`.
+    - You now can see your `Client ID` and `Client Secret`.
+1. Now click `Edit Settings`.
+1. Add `http://localhost:8888/callback` (if the spacific port is taken choose any port you'd like) to the Redirect URIs.
+1. Scroll down and click `Save`.
+1. You are now ready to authenticate with Spotify!.
+1. Go back to the terminal.
+1. Add the Client Id, Client Secret, and Redirect URI to your environment variables, by adding the following lines to your `.bashrc` or `.zshrc`:
+    ```bash
+    export SPOTIPY_CLIENT_ID='YOUR_CLIENT_ID'
+    export SPOTIPY_CLIENT_SECRET='YOUR_CLIENT_SECRET'
+    export SPOTIPY_REDIRECT_URI='http://localhost:'YOUR_PORT'/callback'
+    ```
+1. Use the `source` command to apply the changes:
+    ```bash
+    source ~/.bashrc
+    ```
+    ```bash
+    source ~/.zshrc
+    ```
+1. Use the `SpotifyDevices` command to connect to your Spotify account.
+1. A browser window will open, asking you to log in to your Spotify account.
+1. After logging in, you will be redirected to a page that says `Authentication complete. You can close this tab.`
+1. Now you are connected to the Spotify API and can use the `spotipy.nvim` plugin.
+
+And now you are ready to use the `spotipy.nvim`
 
 ## Usage
 `spotipy.nvim` has several commands:
@@ -110,7 +151,7 @@ Search for a song by providing its name and display the top 20 results.
 
 ### Checking Current Status
 Uses the `vim.notify` API to display the current Spotify status, including song name, album name, artist name, and duration. If no song is playing, an appropriate message will be shown.
-Also supports [nvim.notify](https://github.com/rcarriga/nvim-notify) plugin.
+Recommented usage with [nvim.notify](https://github.com/rcarriga/nvim-notify) plugin.
 ```bash
 :SpotifyStatus
 ```
@@ -148,7 +189,8 @@ vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('neovim-spotify').searc
 ```
 
 ### Statusline
-You can display what's currently playing on your statusline. The example below shows how to show it on [lualine](https://github.com/nvim-lualine/lualine.nvim),
+You can display what's currently playing on your status bar.
+The example below shows how to show it on [lualine](https://github.com/nvim-lualine/lualine.nvim),
 although the configuration should be quite similar on other statusline plugins:
 ```lua
 local status = require"spotipy.nvim".status
@@ -163,8 +205,12 @@ require('lualine').setup {
     }
 }
 ```
+![1](screenshots/statusbar.jpg)
 
 ### Notifications
 You can display the current status and many other notifications using the [nvim.notify](https://github.com/rcarriga/nvim-notify) plugin.
 ```lua
+
+```
+![2](screenshots/notify.png)
 

@@ -112,7 +112,7 @@ And now you are ready to use the `spotipy.nvim`
 `spotipy.nvim` has several commands:
 
 ### Adding a Track to the Queue
-Add a song to the queue (plays it next) by specifying a track URI.
+Add a track to the queue (plays it next) by specifying a track URI.
 ```bash
 :SpotifyAdd <track_uri>
 ```
@@ -123,33 +123,33 @@ Open a menu of the devices connected to your Spotify account and select which on
 :SpotifyDevices
 ```
 
-### Playing a Song
-Play a song by providing its URI.
+### Playing a Track
+Play a track by providing its URI.
 ```bash
 :SpotifyPlay <track_uri>
 ```
 
 ### Controlling Playback
-Control the playback with options to skip or go back a song.
+Control the playback with options to skip or go back a track.
 ```bash
-:SpotifyPlayback -n/next      # Skip to the next song
-:SpotifyPlayback -p/prev      # Go back to the previous song
+:SpotifyPlayback -n/next      # Skip to the next track
+:SpotifyPlayback -p/prev      # Go back to the previous track
 ```
 
 ### Displaying the Playlist
-Show the next 20 songs in the queue.
+Show the next 20 tracks in the queue.
 ```bash
 :SpotifyPlaylist
 ```
 
 ### Searching for a Track
-Search for a song by providing its name and display the top 20 results.
+Search for a track by providing its name and display the top 20 results.
 ```bash
-:SpotifySearch <song_name>
+:SpotifySearch <track_name>
 ```
 
 ### Checking Current Status
-Uses the `vim.notify` API to display the current Spotify status, including song name, album name, artist name, and duration. If no song is playing, an appropriate message will be shown.  
+Uses the `vim.notify` API to display the current Spotify status, including track name, album name, artist name, and duration. If no track is playing, an appropriate message will be shown.  
 Recommented usage with [nvim.notify](https://github.com/rcarriga/nvim-notify) plugin.
 ```bash
 :SpotifyStatus
@@ -165,11 +165,11 @@ Toggle the current playback on or off based on the current state.
 The following keymaps are set by default, notice they all need to be prefixed with youre leader key.:
 | mode | key | Description |
 |---|---|---|
-| normal| <leader>ms | search for songs
+| normal| <leader>ms | search for tracks
 | normal | <leader>mt | toggle playback
 | normal | <leader>ml | show Playlist
-| normal | <leader>mn | skip song
-| normal | <leader>mp | go back to the previous song
+| normal | <leader>mn | skip track
+| normal | <leader>mp | go back to the previous track
 | normal | <leader>md | show devices
 | normal | <leader>mm | show current status
 

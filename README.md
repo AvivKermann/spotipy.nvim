@@ -152,7 +152,7 @@ Search for a song by providing its name and display the top 20 results.
 ```
 
 ### Checking Current Status
-Uses the `vim.notify` API to display the current Spotify status, including song name, album name, artist name, and duration. If no song is playing, an appropriate message will be shown.
+Uses the `vim.notify` API to display the current Spotify status, including song name, album name, artist name, and duration. If no song is playing, an appropriate message will be shown.  
 Recommented usage with [nvim.notify](https://github.com/rcarriga/nvim-notify) plugin.
 ```bash
 :SpotifyStatus
@@ -177,9 +177,9 @@ The following keymaps are set by default, notice they all need to be prefixed wi
 | normal | <leader>mm | show current status
 
 ### Override keymaps
-The default keymaps are set during the spotipy.nvim setup function.
-Make sure to call the setup function before setting your own keymaps.
-You can override the default keymaps by settings your own in the following way:
+The default keymaps are set during the spotipy.nvim setup function.  
+Make sure to call the setup function before setting your own keymaps.  
+You can override the default keymaps by settings your own in the following way:  
 ```lua
 vim.api.nvim_set_keymap("n", "<leader>mt", ":SpotifyToggle<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ml", ":SpotifyPlaylist<CR>", { noremap = true, silent = true })
@@ -191,7 +191,7 @@ vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('neovim-spotify').searc
 ```
 
 ### Statusline
-You can display what's currently playing on your status bar.
+You can display what's currently playing on your status bar.  
 The example below shows how to show it on [lualine](https://github.com/nvim-lualine/lualine.nvim),
 although the configuration should be quite similar on other statusline plugins:
 ```lua

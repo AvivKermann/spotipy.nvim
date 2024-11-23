@@ -54,6 +54,7 @@ class NeovimSpotify:
             return
         # if someone press esq while searching, we should not do anything.
         # while nvim api will pass an empty string either way.
+        self.plugin.nvim.exec_lua(f"print {args[0]}")
         if args[0] == "":
             return
         tracks = self.plugin.search(" ".join(args))

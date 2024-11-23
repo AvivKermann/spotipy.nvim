@@ -52,6 +52,10 @@ class NeovimSpotify:
         if not args or not args[0]:
             self.plugin.nvim.command("echo 'Must provide a search query while using search command'")
             return
+        # if someone press esq while searching, we should not do anything.
+        # while nvim api will pass an empty string either way.
+        if args[0] == "":
+            return
         tracks = self.plugin.search(" ".join(args))
         self.plugin.nvim.vars["spotify_results"] = tracks
         self.plugin.nvim.vars["spotify_query"] = " ".join(args)

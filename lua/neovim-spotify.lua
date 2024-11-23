@@ -155,6 +155,9 @@ end
 
 function M.search()
     local query = vim.fn.input("Search Spotify: ")
+    if query == "" then
+        return
+    end
     vim.cmd("SpotifySearch " .. vim.fn.shellescape(query))
 end
 

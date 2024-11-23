@@ -69,7 +69,7 @@ class Plugin:
         button = StatusBarIcons.play if track.playing else StatusBarIcons.pause
 
         if track.exists:
-            return f"{button} | {track.title} by {track.artist}"
+            return f"| {button} | {track.title} by {track.artist} | "
         return ""
             
 

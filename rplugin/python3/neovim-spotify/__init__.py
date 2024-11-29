@@ -2,20 +2,17 @@ from pynvim.api.nvim import Nvim
 import pynvim
 import time
 from .plugin import Plugin
+from functools import wraps
+from typing import Optional, Dict, Any,Tuple
 
 @pynvim.plugin
 class NeovimSpotify:
     def __init__(self, nvim: Nvim):
         self.plugin = Plugin(nvim)
 
-    @pynvim.function("SpotifyLine", sync=False)
-    def spotify(self, _):
-        self.plugin.nvim.vars["spotify_line"] = self.plugin.get_track_status()
-
-    @pynvim.command("SpotifyToggle", sync=True)
-    def spotify_toggle(self):
-        device_id = self.plugin.nvim.vars.get("spotify_device", None)
-        device_id = device_id.get("id", None) if device_id else None
+    def _authenticate_spotify(self) -> Tuple[Optional[str], Optional[Dict[str, Any]]]: 
+        device_obj = self.plugin.nvim.vars.get("spotify_device", None)
+        device_id = device_obj.get("id", None) if device_obj else None
         playback = self.plugin.spotify.spotify.current_playback()
         if not playback and not device_id:
             status_message = ("No device found.\n"
@@ -23,13 +20,32 @@ class NeovimSpotify:
                               )
             cmd = f"vim.notify({repr(status_message)}, vim.log.levels.INFO, {{title = 'Spotify'}})"
             self.plugin.nvim.exec_lua(cmd)
-            return
+            return None, None
 
+        return device_id, playback
+
+    @staticmethod
+    def spotify_auth(func):
+        @wraps(func)
+        def wrapper(instance, *args, **kwargs):
+            device_id, playback = instance._authenticate_spotify()
+            if not device_id or not playback:
+                return
+            return func(*args, **kwargs, device_id=device_id, playback=playback)
+        return wrapper
+
+
+    @pynvim.command("SpotifyToggle", sync=True)
+    @spotify_auth
+    def spotify_toggle(self, device_id: Optional[str], playback: Optional[Dict[str, Any]]):
         self.plugin.spotify.toggle(playback=playback, device_id=device_id)
         time.sleep(0.1)
         self.spotify_status()
         self.spotify("")
 
+    @pynvim.function("SpotifyLine", sync=False)
+    def spotify(self, _):
+        self.plugin.nvim.vars["spotify_line"] = self.plugin.get_track_status()
 
     @pynvim.command("SpotifyPlayback", nargs=1, sync=True)
     def spotify_playback(self, args: str = ""):

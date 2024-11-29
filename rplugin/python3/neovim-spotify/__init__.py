@@ -35,6 +35,10 @@ class NeovimSpotify:
         return wrapper
 
 
+    @pynvim.function("SpotifyLine", sync=False)
+    def spotify(self, _):
+        self.plugin.nvim.vars["spotify_line"] = self.plugin.get_track_status()
+
     @pynvim.command("SpotifyToggle", sync=True)
     @spotify_auth
     def spotify_toggle(self, device_id: Optional[str], playback: Optional[Dict[str, Any]]):
@@ -43,9 +47,6 @@ class NeovimSpotify:
         self.spotify_status()
         self.spotify("")
 
-    @pynvim.function("SpotifyLine", sync=False)
-    def spotify(self, _):
-        self.plugin.nvim.vars["spotify_line"] = self.plugin.get_track_status()
 
     @pynvim.command("SpotifyPlayback", nargs=1, sync=True)
     def spotify_playback(self, args: str = ""):

@@ -209,6 +209,12 @@ require('lualine').setup {
 ### Notifications
 You can display the current status and many other notifications using the [nvim.notify](https://github.com/rcarriga/nvim-notify) plugin.
 ```lua
+use {
+    'rcarriga/nvim-notify',
+    config = function()
+        vim.notify = require("notify")
+    end
+    }
 
 ```
 ![2](screenshots/notify.png)

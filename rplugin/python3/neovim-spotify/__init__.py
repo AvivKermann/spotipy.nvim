@@ -12,7 +12,7 @@ class NeovimSpotify:
     def spotify(self, _):
         self.plugin.nvim.vars["spotify_line"] = self.plugin.get_track_status()
 
-    @pynvim.command("SpotifyToggle", sync=True)
+    @pynvim.command("SpotifyToggle", sync=False)
     def spotify_toggle(self):
         device_id = self.plugin.nvim.vars.get("spotify_device", None)
         device_id = device_id.get("id", None) if device_id else None
@@ -31,7 +31,7 @@ class NeovimSpotify:
         self.spotify("")
 
 
-    @pynvim.command("SpotifyPlayback", nargs=1, sync=True)
+    @pynvim.command("SpotifyPlayback", nargs=1, sync=False)
     def spotify_playback(self, args: str = ""):
         args = args[0].strip().lower() if args else ""
         if args in ["-n", "next"]:

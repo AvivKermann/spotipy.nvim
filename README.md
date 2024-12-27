@@ -215,7 +215,6 @@ use {
         vim.notify = require("notify")
     end
     }
-
 ```
 ![2](screenshots/notify.png)
 

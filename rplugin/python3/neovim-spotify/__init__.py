@@ -26,7 +26,7 @@ class NeovimSpotify:
             return
 
         self.plugin.spotify.toggle(playback=playback, device_id=device_id)
-        time.sleep(0.1)
+        time.sleep(0.5)
         self.spotify_status()
         self.spotify("")
 

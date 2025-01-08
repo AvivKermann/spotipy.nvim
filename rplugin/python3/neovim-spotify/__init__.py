@@ -68,7 +68,7 @@ class NeovimSpotify:
         if device_id:
             device_id = device_id["id"]
         self.plugin.spotify.play(" ".join(args), device_id)
-        time.sleep(0.1)
+        time.sleep(0.5)
         self.spotify_status()
         self.spotify("")
 

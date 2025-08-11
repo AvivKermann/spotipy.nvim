@@ -25,7 +25,7 @@ For Neovim users who want to have music at their fingertips.
 
 ## Requirements
 
-> `spotipy.nvim` is a python based plugin, using the [spotipy](https://github.com/spotipy-dev/spotipy) library to interact with the Spotify API.
+ `spotipy.nvim` is a python based plugin, using the [spotipy](https://github.com/spotipy-dev/spotipy) library to interact with the Spotify API.
 
 -   [pynvim](https://github.com/neovim/pynvim)
 -   [spotipy](https://github.com/spotipy-dev/spotipy)
@@ -33,9 +33,9 @@ For Neovim users who want to have music at their fingertips.
 -   [Spotify](https://www.spotify.com/us/download)
 -   [Spotify Premium](https://www.spotify.com/us/premium/)
 
-> As `spotipy.nvim` only handles the interaction with the Spotify API, you will need a Spotify Premium account to use this plugin.  
-> As Spotify API does not handle the playback of the music, you will need to have the Spotify app running in the background.  
-> The `spotipy.nvim` plugin was tested using on linux and mac using the full version of the Spotify app, it may not work with `spotifyd`.
+ As `spotipy.nvim` only handles the interaction with the Spotify API, you will need a Spotify Premium account to use this plugin.  
+ As Spotify API does not handle the playback of the music, you will need to have the Spotify app running in the background.  
+ The `spotipy.nvim` plugin was tested using on linux and mac using the full version of the Spotify app, it may not work with `spotifyd`.
 
 ## Installation
 
